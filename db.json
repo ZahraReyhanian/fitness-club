@@ -1,0 +1,131 @@
+{
+  "tweets": [
+    {
+      "sender": {
+        "name": "پاییز تنها",
+        "id": "@fall",
+        "img": "/images/user-profiles.png"
+      },
+      "text": "#صبحانه عالی و بی نظیر با #آب_کرفس",
+      "likes": 13
+    },
+    {
+      "sender": {
+        "name": "کوه قوی",
+        "id": "@kooh",
+        "img": "/images/koooh_user.png"
+      },
+      "text": "کجای #کاری ؟؟؟؟",
+      "likes": 25
+    },
+    {
+      "sender": {
+        "name": "Mike",
+        "id": "@Milke_oo",
+        "img": "/images/mike.png"
+      },
+      "text": "#مایک اینجاست",
+      "likes": 10
+    },
+    {
+      "sender": {
+        "name": "زهرا ریحانیان",
+        "id": "@zahra_rhnn",
+        "img": "/images/user.jpg"
+      },
+      "text": "صبح با #نشاط",
+      "likes": 6
+    },
+    {
+      "id": 38,
+      "sender": {
+        "name": "زهرا ریحانیان",
+        "id": "@zahra_rhnn",
+        "img": "/images/user.jpg"
+      },
+      "text": "سلام. #توئیت_جدید من",
+      "likes": 0
+    },
+    {
+      "id": 435,
+      "sender": {
+        "name": "زهرا ریحانیان",
+        "id": "@zahra_rhnn",
+        "img": "/images/user.jpg"
+      },
+      "text": "چه #روز خوبی! #خدا_رو_شکر",
+      "likes": 0
+    },
+    {
+      "id": 490,
+      "sender": {
+        "name": "زهرا ریحانیان",
+        "id": "@zahra_rhnn",
+        "img": "/images/user.jpg"
+      },
+      "text": "توئيت با ساختار جديد ماژولار\n\n",
+      "likes": 0
+    },
+    {
+      "id": 840,
+      "sender": {
+        "name": "زهرا ریحانیان",
+        "id": "@zahra_rhnn",
+        "img": "/images/user.jpg"
+      },
+      "text": "بازم سلام",
+      "likes": 0
+    },
+    {
+      "id": 373,
+      "sender": {
+        "name": "زهرا ریحانیان",
+        "id": "@zahra_rhnn",
+        "img": "/images/user.jpg"
+      },
+      "text": "چه خبر از ریکت !",
+      "likes": 0
+    },
+    {
+      "id": 752,
+      "sender": {
+        "name": "زهرا ریحانیان",
+        "id": "@zahra_rhnn",
+        "img": "/images/user.jpg"
+      },
+      "text": "نشسته ام به در نگاه میکنم!",
+      "likes": 0
+    }
+  ],
+  "users": [
+    {
+      "name": "Xiaomi",
+      "id": "@Xiaomi",
+      "img": "/images/xiaomi.png"
+    },
+    {
+      "name": "Samsung",
+      "id": "@samsung",
+      "img": "/images/samsung.png"
+    },
+    {
+      "name": "مایک بای",
+      "id": "@Mike_IMC",
+      "img": "/images/mike.png"
+    },
+    {
+      "name": "شرلی ونگ!",
+      "id": "@Sherley_IMC",
+      "img": "/images/shily.png"
+    }
+  ],
+  "hashtags": [
+    "پرچم_دار_جدید",
+    "کرونا_ویروس",
+    "سامسونگ",
+    "آیفون_جدید",
+    "پرچم_دار_جدید",
+    "سامسونگ",
+    "آیفون_جدید"
+  ]
+}
