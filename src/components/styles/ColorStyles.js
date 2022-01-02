@@ -3,7 +3,7 @@ export const themes = {
     text1: "black",
     text2: "rgba(0, 0, 0, 0.7)",
     primary: "#3913B8",
-    secondary: "#2FB5FC",
+    secondary: "#2FB5FC", //#461ADC for image svg
     backgroundColor: "#F2F6FF",
     card: {
       backgroundColor: `rgba(255, 255, 255, 0.6)`,
@@ -21,4 +21,4 @@ export const themes = {
     text2: "rgba(255, 255, 255, 0.7)",
     backgroundColor: "#1F1F47",
   },
-}
+};

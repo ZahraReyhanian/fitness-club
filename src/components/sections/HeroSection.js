@@ -26,7 +26,7 @@ function HeroSection() {
           <PurchaseButton title="Start Now!" />
         </TextWrapper>
         <ImgWrapper>
-          <img src="/images/home/home.png" />
+          <img src="/images/home/home.png" alt="home" />
         </ImgWrapper>
       </ContentWrapper>
     </Wrapper>
