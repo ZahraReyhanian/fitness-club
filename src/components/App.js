@@ -5,23 +5,33 @@ import "react-toastify/dist/ReactToastify.css";
 import Redirect from "react-router-dom/es/Redirect";
 
 import AuthPage from "../pages/auth/AuthPage";
-import Home from "../pages/Home"
-// import AdminPanel from "../pages/admin/AdminPanel";
+import Home from "../pages/Home";
+import ProfilePanel from "../pages/profile/ProfilePanel";
+import AdminPanel from "../pages/admin/AdminPanel";
+import NotFound from "../pages/404";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
         <Switch>
-          <PublicRoute path={"/login"} component={AuthPage} />
+          <AuthRoute path={"/login"} component={AuthPage} />
           <PrivateRoute
-            path={"/"}
+            path={"/profile"}
             render={() => {
-              return (
-                <Home />
-              );
+              return <ProfilePanel />;
             }}
           />
+          <PrivateRouteAdmin
+            path={"/admin"}
+            render={() => {
+              return <AdminPanel />;
+            }}
+          />
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
       <ToastContainer />
@@ -29,9 +39,10 @@ const App = () => {
   );
 };
 
-const isLogin = () => true;
-// !!localStorage.getItem("x-auth-token")
-const PublicRoute = ({ component, props }) => {
+const isLogin = () => !!localStorage.getItem("x-auth-token");
+const isAdmin = () => !!localStorage.getItem("x-auth-token");
+
+const AuthRoute = ({ component, props }) => {
   return (
     <Route
       {...props}
@@ -44,6 +55,7 @@ const PublicRoute = ({ component, props }) => {
     />
   );
 };
+
 const PrivateRoute = ({ render, props }) => {
   return (
     <Route
@@ -51,6 +63,22 @@ const PrivateRoute = ({ render, props }) => {
       render={(props) => {
         if (isLogin()) return render(props);
         else {
+          return <Redirect to={"/login"} />;
+        }
+      }}
+    />
+  );
+};
+
+const PrivateRouteAdmin = ({ render, props }) => {
+  return (
+    <Route
+      {...props}
+      render={(props) => {
+        if (isLogin()) {
+          if (isAdmin()) return render(props);
+          else return <Redirect to={"/"} />;
+        } else {
           return <Redirect to={"/login"} />;
         }
       }}

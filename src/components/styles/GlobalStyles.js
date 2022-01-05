@@ -53,3 +53,7 @@ export const Button = styled.button`
     width: 100%;
   }
 `;
+
+export const Cover = styled.div`
+  background: linear-gradient(180deg, #343563 0%, #f2f6ff 100%);
+`;

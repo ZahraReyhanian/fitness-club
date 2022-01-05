@@ -42,8 +42,9 @@ const ServiceContent = styled.div`
 `;
 
 const ServiceDetail = styled(H3)`
-  font-weight: 200;
+  font-weight: 100;
   color: #fff;
+  transition: 0.2s ease-out;
 
   &:hover {
     color: #3913b8;
