@@ -22,6 +22,18 @@ const App = () => {
               return <ProfilePanel />;
             }}
           />
+          <PrivateRoute
+            path={"/setting"}
+            render={() => {
+              return <ProfilePanel />;
+            }}
+          />
+          <PrivateRoute
+            path={"/profile_exercise"}
+            render={() => {
+              return <ProfilePanel />;
+            }}
+          />
           <PrivateRouteAdmin
             path={"/admin"}
             render={() => {
@@ -39,7 +51,7 @@ const App = () => {
   );
 };
 
-const isLogin = () => !!localStorage.getItem("x-auth-token");
+const isLogin = () => true; //!!localStorage.getItem("x-auth-token");
 const isAdmin = () => !!localStorage.getItem("x-auth-token");
 
 const AuthRoute = ({ component, props }) => {
