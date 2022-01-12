@@ -61,6 +61,10 @@ const Profile = styled.div`
     border-radius: 100%;
     border: 5px solid rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
+
+    @media screen and (max-width: 576px) {
+      max-width: 90px;
+    }
   }
 `;
 const Nav = styled.nav`
@@ -86,6 +90,7 @@ const NavItem = styled.li`
     display: block;
     padding: 0.5rem 0;
     position: relative;
+    font-weight: 400;
     &::before {
       content: "";
       position: absolute;
@@ -104,6 +109,9 @@ const NavItem = styled.li`
       width: 100%;
       transform: scale(1);
     }
+    @media screen and (max-width: 576px) {
+      font-size: 16px;
+    }
   }
   .active {
     background-color: #037fff;
@@ -115,5 +123,9 @@ const NavFooter = styled.footer`
   p {
     text-align: center;
     padding: 1rem 0;
+    font-size: 20px;
+    @media screen and (max-width: 576px) {
+      font-size: 16px;
+    }
   }
 `;

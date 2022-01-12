@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import useStyles from "./styles";
 import { toast } from "react-toastify";
 import { loginApi, registerApi } from "../../api/api_auth";
 import { Col, Container, Form, Row } from "react-bootstrap";
@@ -17,7 +16,6 @@ const REG_TAB_VALUE = 2;
 const RESET_TAB_VALUE = 3;
 
 const AuthPage = () => {
-  const classes = useStyles();
 
   const [tab, setTab] = useState(LOGIN_TAB_VALUE);
 
@@ -41,43 +39,43 @@ const AuthPage = () => {
   };
 
   const validateLogin = (user) => {
-    if (!user.username) return "نام كاربری را وارد كنید";
+    if (!user.email) return "نام كاربری را وارد كنید";
     if (!user.password) return "رمز عبور را وارد كنيد";
   };
 
   const validateRegister = (user) => {
-    if (!user.username) return "نام كاربری را وارد كنید";
+    if (!user.email) return "نام كاربری را وارد كنید";
     if (!user.name) return "نام را وارد كنید";
     if (!user.password) return "رمز عبور را وارد كنيد";
-    if (user.password != user.confPasswordRegister)
+    if (user.password != user.confirmPassword)
       return "رمز عبور را تاييد كنيد";
   };
 
   const handleRegister = () => {
     const user = {
       name: fullNameRegister,
-      username: emailRegister,
+      email: emailRegister,
       password: passwordRegister,
-      confPasswordRegister: confPasswordRegister,
+      confirmPassword: confPasswordRegister,
     };
     const error = validateRegister(user);
     if (error) return toast.warn(error);
 
-    user.confPasswordRegister = undefined;
+    // user.confPasswordRegister = undefined;
     registerApi(user, (isOk, data) => {
       if (!isOk) return toast.error(data);
       toast.success("شما با موفقيت ثبت نام شديد");
-      localStorage.setItem("name", data.name);
-      localStorage.setItem("image", data.image);
-      localStorage.setItem("username", data.username);
-      localStorage.setItem("x-auth-token", data["x-auth-token"]);
+      localStorage.setItem("x-auth-token", data.data.token);
+      localStorage.setItem("email", data.data.user.email);
+      localStorage.setItem("name", data.data.user.name);
+
       window.location.reload();
     });
   };
 
   const handleLogin = () => {
     const user = {
-      username: emailLogin,
+      email: emailLogin,
       password: passwordLogin,
     };
     const error = validateLogin(user);
@@ -86,10 +84,9 @@ const AuthPage = () => {
     loginApi(user, (isOk, data) => {
       if (!isOk) return toast.error(data);
       toast.success("شما با موفقيت وارد شديد");
-      localStorage.setItem("name", data.name);
-      localStorage.setItem("image", data.image);
-      localStorage.setItem("username", data.username);
-      localStorage.setItem("x-auth-token", data["x-auth-token"]);
+      localStorage.setItem("x-auth-token", data.data.token);
+      localStorage.setItem("email", data.data.user.email);
+      localStorage.setItem("name", data.data.user.name);
       window.location.reload();
     });
   };
@@ -153,7 +150,7 @@ const AuthPage = () => {
                 <Col lg={6} md={6} sm={12} className="text-center mt-5 p-3">
                   <img className="icon-img" src={LoginIcon} alt="userIcon" />
                   <Form>
-                    <Form.Group className="mb-3" controlId="formBasicUsername">
+                    <Form.Group className="mb-3" controlId="formBasicemail">
                       <Form.Control
                         value={emailRegister}
                         onChange={(e) => setEmailRegister(e.target.value)}
@@ -226,7 +223,7 @@ const AuthPage = () => {
                 <Col lg={6} md={6} sm={12} className="text-center mt-5 p-3">
                   <img className="icon-img" src={LoginIcon} alt="userIcon" />
                   <Form>
-                    <Form.Group className="mb-3" controlId="formBasicUsername">
+                    <Form.Group className="mb-3" controlId="formBasicemail">
                       <Form.Control
                         value={emailRegister}
                         onChange={(e) => setEmailRegister(e.target.value)}

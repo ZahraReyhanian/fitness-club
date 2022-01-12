@@ -28,13 +28,14 @@ const Wrapper = styled.div`
   margin: 80px 0 150px 0;
 
   @media (max-width: 1025px) {
-    margin: 80px;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 60px 80px;
   }
   @media (max-width: 769px) {
     grid-template-columns: repeat(2, 1fr);
-    margin: 60px 80px;
+    margin: 60px 70px;
   }
-  @media (max-width: 450px) {
+  @media (max-width: 560px) {
     grid-template-columns: 1fr;
     margin: 50px 10px;
   }

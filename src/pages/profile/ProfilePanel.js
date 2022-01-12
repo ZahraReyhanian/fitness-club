@@ -46,6 +46,7 @@ const ProfilePanel = () => {
 export default ProfilePanel;
 
 const PanelContainer = styled.div`
+  overflow: hidden;
   .nav-toggle {
     transform: translateX(0);
   }
@@ -69,7 +70,7 @@ const Sidebar = styled.div`
     width: 30%;
   }
 
-  @media screen and (max-width: 411px) {
+  @media screen and (max-width: 576px) {
     width: 50%;
   }
 `;
@@ -90,7 +91,7 @@ const MainContent = styled.div`
 const MainContentWrapper = styled.div`
   margin: 2rem 7rem;
   @media (max-width: 576px) {
-    margin: 4rem;
+    margin: 2rem;
   }
 `;
 

@@ -5,12 +5,15 @@ import { themes } from "../styles/ColorStyles";
 import PurchaseButton from "../buttons/PurchaseButton";
 import WaveBackground from "../backgrounds/WaveBackground";
 
+import { Col, Container, Row } from "react-bootstrap";
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
 function HeroSection() {
   return (
     <Wrapper>
       <WaveBackground />
       <ContentWrapper>
-        <TextWrapper>
+        <TextWrapper md={5} sm={12}>
           <Title>
             Health Club
             <br /> and Fitness of <span>Energy</span>
@@ -25,7 +28,7 @@ function HeroSection() {
           </Description>
           <PurchaseButton title="Start Now!" />
         </TextWrapper>
-        <ImgWrapper>
+        <ImgWrapper md={7} sm={12}>
           <img src="/images/home/home.png" alt="home" />
         </ImgWrapper>
       </ContentWrapper>
@@ -43,22 +46,22 @@ const animation = keyframes`
 const Wrapper = styled.div`
   overflow: hidden;
 `;
-const ContentWrapper = styled.div`
+const ContentWrapper = styled(Row)`
   max-width: 1234px;
   margin: 0 auto;
   padding: 200px 30px;
-  display: grid;
-  grid-template-columns: 457px auto;
-  grid-gap: 10px;
+  //display: grid;
+  //grid-template-columns: 457px auto;
+  //grid-gap: 10px;
 
   @media (max-width: 450px) {
-    grid-template-columns: auto;
-    gap: 60px;
+    //grid-template-columns: auto;
+    //gap: 60px;
     padding: 150px 20px 250px;
   }
 `;
 
-const TextWrapper = styled.div`
+const TextWrapper = styled(Col)`
   max-width: 1234px;
   display: grid;
   gap: 30px;
@@ -92,22 +95,42 @@ const Title = styled(H1)`
     -webkit-background-clip: text;
     color: transparent;
   }
+
+  @media (max-width: 914px) and (min-width: 768px) {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 55px;
+  }
 `;
 
-const Description = styled(MediumText)``;
+const Description = styled(MediumText)`
+  @media (max-width: 914px) and (min-width: 768px) {
+    font-size: 16px;
+  }
+`;
 
-const ImgWrapper = styled.div`
+const ImgWrapper = styled(Col)`
   position: relative;
   max-width: 1234px;
   margin: 0 auto;
-  padding: 0 0 0 155px;
+  padding: 0 2rem;
+  img {
+    width: 100%;
+    margin-top: 2rem;
+  }
 
+  @media (max-width: 914px) and (min-width: 768px) {
+    padding: 0;
+  }
   @media (max-width: 760px) {
     transform: scale(0.9);
-    transform-origin: top left;
+    padding: 0;
+    img {
+      width: 100%;
+      margin-top: 88px;
+    }
   }
   @media (max-width: 450px) {
     transform: scale(0.7);
-    padding: 0;
   }
 `;

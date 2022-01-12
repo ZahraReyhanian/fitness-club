@@ -2,13 +2,14 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Redirect from "react-router-dom/es/Redirect";
+import { Redirect } from "react-router-dom";
 
 import AuthPage from "../pages/auth/AuthPage";
 import Home from "../pages/Home";
 import ProfilePanel from "../pages/profile/ProfilePanel";
 import AdminPanel from "../pages/admin/AdminPanel";
 import NotFound from "../pages/404";
+import Exercise from "../pages/exercise/Exercise";
 
 const App = () => {
   return (
@@ -34,6 +35,13 @@ const App = () => {
               return <ProfilePanel />;
             }}
           />
+          <PrivateRoute
+            path={"/exercise"}
+            render={() => {
+              return <Exercise />;
+            }}
+          />
+
           <PrivateRouteAdmin
             path={"/admin"}
             render={() => {
@@ -51,7 +59,7 @@ const App = () => {
   );
 };
 
-const isLogin = () => true; //!!localStorage.getItem("x-auth-token");
+const isLogin = () => !!localStorage.getItem("x-auth-token");
 const isAdmin = () => !!localStorage.getItem("x-auth-token");
 
 const AuthRoute = ({ component, props }) => {

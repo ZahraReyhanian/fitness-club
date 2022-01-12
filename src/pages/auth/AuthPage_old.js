@@ -12,7 +12,7 @@ import {loginApi, registerApi} from "../../api/api_auth";
 const LOGIN_TAB_VALUE = 1;
 const REG_TAB_VALUE = 2;
 
-const AuthPage = () => {
+const AuthPage_old = () => {
     const classes = useStyles();
 
     const [tab, setTab] = useState(LOGIN_TAB_VALUE);
@@ -136,4 +136,4 @@ const AuthPage = () => {
     );
 };
 
-export default AuthPage;
+export default AuthPage_old;

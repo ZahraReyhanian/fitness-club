@@ -2,7 +2,6 @@ import React from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import Title from "./Title";
 import styled from "styled-components";
-import { themes } from "../../components/styles/ColorStyles";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 const Setting = () => {
