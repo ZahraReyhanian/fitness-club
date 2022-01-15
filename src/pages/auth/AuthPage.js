@@ -16,7 +16,6 @@ const REG_TAB_VALUE = 2;
 const RESET_TAB_VALUE = 3;
 
 const AuthPage = () => {
-
   const [tab, setTab] = useState(LOGIN_TAB_VALUE);
 
   //login state
@@ -47,8 +46,7 @@ const AuthPage = () => {
     if (!user.email) return "نام كاربری را وارد كنید";
     if (!user.name) return "نام را وارد كنید";
     if (!user.password) return "رمز عبور را وارد كنيد";
-    if (user.password != user.confirmPassword)
-      return "رمز عبور را تاييد كنيد";
+    if (user.password != user.confirmPassword) return "رمز عبور را تاييد كنيد";
   };
 
   const handleRegister = () => {
@@ -64,12 +62,16 @@ const AuthPage = () => {
     // user.confPasswordRegister = undefined;
     registerApi(user, (isOk, data) => {
       if (!isOk) return toast.error(data);
-      toast.success("شما با موفقيت ثبت نام شديد");
-      localStorage.setItem("x-auth-token", data.data.token);
-      localStorage.setItem("email", data.data.user.email);
-      localStorage.setItem("name", data.data.user.name);
 
-      window.location.reload();
+      const delayInMilliseconds = 1000; //1 second
+
+      setTimeout(function () {
+        toast.success("شما با موفقيت ثبت نام شديد");
+        localStorage.setItem("x-auth-token", data.data.token);
+        localStorage.setItem("email", data.data.user.email);
+        localStorage.setItem("name", data.data.user.name);
+        window.location.reload();
+      }, delayInMilliseconds);
     });
   };
 
@@ -83,11 +85,16 @@ const AuthPage = () => {
 
     loginApi(user, (isOk, data) => {
       if (!isOk) return toast.error(data);
-      toast.success("شما با موفقيت وارد شديد");
-      localStorage.setItem("x-auth-token", data.data.token);
-      localStorage.setItem("email", data.data.user.email);
-      localStorage.setItem("name", data.data.user.name);
-      window.location.reload();
+
+      const delayInMilliseconds = 1000; //1 second
+
+      setTimeout(function () {
+        toast.success("شما با موفقيت وارد شديد");
+        localStorage.setItem("x-auth-token", data.data.token);
+        localStorage.setItem("email", data.data.user.email);
+        localStorage.setItem("name", data.data.user.name);
+        window.location.reload();
+      }, delayInMilliseconds);
     });
   };
 
@@ -119,11 +126,7 @@ const AuthPage = () => {
                       />
                     </Form.Group>
 
-                    <Button2
-                      variant="primary w-100"
-                      type="submit"
-                      onClick={handleLogin}
-                    >
+                    <Button2 variant="primary w-100" onClick={handleLogin}>
                       Login
                     </Button2>
 
@@ -191,11 +194,7 @@ const AuthPage = () => {
                       />
                     </Form.Group>
 
-                    <Button2
-                      variant="primary w-100"
-                      type="submit"
-                      onClick={handleRegister}
-                    >
+                    <Button2 variant="primary w-100" onClick={handleRegister}>
                       Register
                     </Button2>
 
@@ -232,11 +231,7 @@ const AuthPage = () => {
                       />
                     </Form.Group>
 
-                    <Button2
-                      variant="primary w-100"
-                      type="submit"
-                      onClick={handleRegister}
-                    >
+                    <Button2 variant="primary w-100" onClick={handleRegister}>
                       Reset Password
                     </Button2>
 

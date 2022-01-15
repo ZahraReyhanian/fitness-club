@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {
   List,
   Datagrid,
@@ -13,26 +13,26 @@ import {
   DeleteButton,
 } from "react-admin";
 
-export const GYM = (props) => (
+export const aboutList = (props) => (
   <List {...props}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
-      <TextField source="gymName" />
-      <TextField source="gymText" />
+      <TextField source="title" />
+      <TextField source="aboutUs" />
       <ImageField source="image" />
-      <EditButton basepath="/gym" />
-      <DeleteButton basepath="/gym" />
+      <EditButton basepath="/about" />
+      <DeleteButton basepath="/about" />
     </Datagrid>
   </List>
 );
 
-export const GYMEdit = (props) => (
+export const aboutEdit = (props) => (
   <Edit {...props}>
     <SimpleForm>
       <TextInput disabled source="id" />
 
-      <TextInput source="gymName" />
-      <TextInput multiline source="gymText" />
+      <TextInput source="title" />
+      <TextInput multiline source="aboutUs" />
       <ImageInput source="image" label="Related image" accept="image/*">
         <ImageField source="src" title="title" />
       </ImageInput>
@@ -49,15 +49,15 @@ const PreviewImage = ({ record, source }) => {
   return <ImageField record={record} source={source} />;
 };
 
-export const GYMCreate = (props) => (
+export const aboutCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="gymName" />
-      <TextInput multiline source="gymText" />
+      <TextInput source="title" />
+      <TextInput multiline source="aboutUs" />
       <ImageInput
         source="image"
         label="Images"
-        accept="image/png, image/jpg, image/jpeg, image/svg"
+        accept="image/png, image/jpg, image/jpeg"
         maxSize={5000000}
       >
         <PreviewImage source="src" />

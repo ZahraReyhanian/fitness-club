@@ -1,13 +1,81 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { toast } from "react-toastify";
+import { uploadUserPhoto } from "../../api/api_auth";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
+  const [imageFile, setImageFile] = useState();
+  const [imagePath, setImagePath] = useState();
+  const [anchorMenu, setAnchorMenu] = useState();
+  const inputRef = useRef();
+
+  const handleToggleMenu = (e) => {
+    if (anchorMenu) setAnchorMenu(null);
+    else setAnchorMenu(e.currentTarget);
+  };
+
+  const getImage = () => {
+    if (imagePath) return imagePath;
+    if (
+      localStorage.getItem("image") &&
+      localStorage.getItem("image") !== "undefined"
+    )
+      return localStorage.getItem("image");
+    return "/images/person.png";
+  };
+
+  const handleAvatarChange = (e) => {
+    const addr = "http://localhost:8000//";
+    if (e.target.files && e.target.files.length > 0) {
+      setImageFile(e.target.files[0]);
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePath(e.target.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+      const formData = new FormData();
+      formData.append("image", e.target.files[0]);
+      uploadUserPhoto(formData, (isOK, data) => {
+        console.log(data);
+        if (!isOK) return toast.error(data);
+        const delayInMilliseconds = 1000; //1 second
+
+        setTimeout(function () {
+          localStorage.setItem("image", addr + data.data.imagePath);
+          toast.success("عكس شما با موفقيت آپلود شد");
+        }, delayInMilliseconds);
+      });
+    }
+  };
+
   return (
     <Navbar>
       <Nav>
         <Profile>
-          <img src="/images/profile.jpg" alt="" />
+          <Grid
+            container
+            direction={"row-reverse"}
+            onClick={handleToggleMenu}
+            style={{ cursor: "pointer", justifyContent: "center" }}
+          >
+            <img src={getImage()} alt={"profile"} />
+            <Grid item container direction={"column"}>
+              <Typography>{localStorage.getItem("name")}</Typography>
+            </Grid>
+            <input
+              ref={inputRef}
+              type={"file"}
+              style={{ display: "none" }}
+              onChange={handleAvatarChange}
+            />
+          </Grid>
+          {/* <img src="/images/profile.jpg" alt="" /> */}
         </Profile>
         <NavItems>
           <NavItem>
@@ -31,7 +99,15 @@ const NavBar = () => {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/signout" exact activeClassName="active">
+            <NavLink
+              to="/signout"
+              exact
+              activeClassName="active"
+              onClick={() => {
+                localStorage.clear();
+                window.location.reload();
+              }}
+            >
               Sign out
             </NavLink>
           </NavItem>
@@ -39,6 +115,19 @@ const NavBar = () => {
         <NavFooter>
           <p>Your Profile Panel</p>
         </NavFooter>
+        <Menu
+          open={anchorMenu}
+          onClose={() => setAnchorMenu(null)}
+          anchorEl={anchorMenu}
+        >
+          <MenuItem
+            onClick={() => {
+              inputRef.current.click();
+            }}
+          >
+            ویرایش عکس پروفایل
+          </MenuItem>
+        </Menu>
       </Nav>
     </Navbar>
   );

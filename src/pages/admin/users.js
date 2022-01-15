@@ -3,15 +3,13 @@ import {
   List,
   Datagrid,
   TextField,
-  ReferenceField,
-  EditButton,
   Edit,
   Create,
   SimpleForm,
-  ReferenceInput,
-  SelectInput,
   TextInput,
   EmailField,
+  EditButton,
+  DeleteButton
 } from "react-admin";
 
 export const Users = (props) => (
@@ -20,6 +18,8 @@ export const Users = (props) => (
       <TextField source="id" />
       <TextField source="name" />
       <EmailField source="email" />
+      <EditButton basepath="/users" />
+      <DeleteButton basepath="/users" />
     </Datagrid>
   </List>
 );

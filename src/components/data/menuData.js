@@ -2,30 +2,30 @@ export const menuData = [
   {
     title: "Equipments",
     icon: "/images/icons/courses.svg",
-    link: "/courses",
+    link: "/equipments",
   },
   {
-    title: "Ecersices",
+    title: "Exersices",
     icon: "/images/icons/tutorials.svg",
-    link: "/toturials",
+    link: "/exercises",
   },
   {
     title: "",
     icon: "/images/icons/account.svg",
     link: "/account",
   },
-]
+];
 
 export const menuDataHamburger = [
   {
     title: "Equipments",
     icon: "/images/icons/courses.svg",
-    link: "/courses",
+    link: "/equipments",
   },
   {
-    title: "Ecersices",
+    title: "Exersices",
     icon: "/images/icons/tutorials.svg",
-    link: "/toturials",
+    link: "/exercises",
   },
   {
     title: "Profile",
@@ -37,7 +37,7 @@ export const menuDataHamburger = [
     icon: "/images/icons/signout.svg",
     link: "/signout",
   },
-]
+];
 
 export const tooltipData = [
   {
@@ -50,4 +50,4 @@ export const tooltipData = [
     icon: "/images/icons/signout.svg",
     link: "/signout",
   },
-]
+];

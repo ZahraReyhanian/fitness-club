@@ -6,7 +6,6 @@ import InfoSection from "../components/sections/InfoSection";
 import { infoData } from "../components/data/infoData";
 import Footer from "../components/footer/Footer";
 import ServiceSection from "../components/sections/ServiceSection";
-import Exercise from "./exercise/Exercise";
 import { getHome } from "../api/api_home";
 
 function Home() {
@@ -21,7 +20,6 @@ function Home() {
   }, []);
 
   return (
-    // <Exercise />
     <Layout>
       <HeroSection />
       <ExerciseSection />

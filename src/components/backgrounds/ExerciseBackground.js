@@ -47,26 +47,26 @@ const Background = styled.div`
   }
 `;
 
-const MaskTop = styled.div`
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  position: absolute;
-  width: 100%;
-  height: 400px;
-  z-index: -1;
-`;
+// const MaskTop = styled.div`
+//   background: linear-gradient(
+//     180deg,
+//     rgba(0, 0, 0, 0.3) 0%,
+//     rgba(0, 0, 0, 0) 100%
+//   );
+//   position: absolute;
+//   width: 100%;
+//   height: 400px;
+//   z-index: -1;
+// `;
 
-const MaskBottom = styled.div`
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
-  position: absolute;
-  width: 100%;
-  height: 400px;
-  z-index: -1;
-`;
+// const MaskBottom = styled.div`
+//   background: linear-gradient(
+//     180deg,
+//     rgba(0, 0, 0, 0) 0%,
+//     rgba(0, 0, 0, 0.3) 100%
+//   );
+//   position: absolute;
+//   width: 100%;
+//   height: 400px;
+//   z-index: -1;
+// `;

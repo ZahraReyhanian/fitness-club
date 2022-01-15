@@ -28,7 +28,11 @@ export const registerApi = (user, callback) => {
 
 export const uploadUserPhoto = (photo, callback) => {
   getAxiosInstanceApi()
-    .post("uploadUserPhoto", photo)
+    .post(
+      "user/panel/updateImage?api_token=" +
+        localStorage.getItem("x-auth-token"),
+      photo
+    )
     .then((response) => {
       const data = response.data;
       callback(true, data);

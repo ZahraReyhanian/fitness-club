@@ -10,6 +10,8 @@ import ProfilePanel from "../pages/profile/ProfilePanel";
 import AdminPanel from "../pages/admin/AdminPanel";
 import NotFound from "../pages/404";
 import Exercise from "../pages/exercise/Exercise";
+import AllExercise from "../pages/exercise/AllExercise";
+import AllEquipment from "../pages/equipment/AllEquipment";
 
 const App = () => {
   return (
@@ -36,9 +38,23 @@ const App = () => {
             }}
           />
           <PrivateRoute
-            path={"/exercise"}
+            path={"/exercise/:exercise"}
             render={() => {
               return <Exercise />;
+            }}
+          />
+          <PrivateRoute
+            exact
+            path={"/exercises"}
+            render={() => {
+              return <AllExercise />;
+            }}
+          />
+          <PrivateRoute
+            exact
+            path={"/equipments"}
+            render={() => {
+              return <AllEquipment />;
             }}
           />
 

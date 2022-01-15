@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Caption2 } from "../styles/TestStyles";
 
-export default function PurchaseButton({ title }) {
+export default function PurchaseButton({ title, link }) {
   return (
-    <Link to="/page-2">
+    <Link to={link}>
       <Wrapper>
-        <Title>{title || "Get Pro Access"}</Title>
+        <Title>{title}</Title>
       </Wrapper>
     </Link>
   );

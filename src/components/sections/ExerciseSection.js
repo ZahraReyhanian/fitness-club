@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PurchaseButton from "../buttons/PurchaseButton";
 import ExerciseCard from "../cards/ExerciseCard";
 import { exerciseData } from "../data/exerciseData";
 import { Container } from "../styles/GlobalStyles";
@@ -9,7 +10,7 @@ export default function ExerciseSection() {
   return (
     <Container>
       <TitleComponent
-        title="Our Exercises"
+        title="Your Exercises"
         subtitle="exercise and necesary description"
       />
       <Wrapper>
@@ -17,6 +18,9 @@ export default function ExerciseSection() {
           return <ExerciseCard data={exercise} />;
         })}
       </Wrapper>
+      <MoreExercise>
+        <PurchaseButton title="see more" link="exercises" />
+      </MoreExercise>
     </Container>
   );
 }
@@ -25,7 +29,7 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 2.5rem;
-  margin: 80px 0 150px 0;
+  margin: 80px 0 50px 0;
 
   @media (max-width: 1025px) {
     grid-template-columns: repeat(3, 1fr);
@@ -39,4 +43,10 @@ const Wrapper = styled.div`
     grid-template-columns: 1fr;
     margin: 50px 10px;
   }
+`;
+
+const MoreExercise = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 150px;
 `;

@@ -5,7 +5,7 @@ import { themes } from "../styles/ColorStyles";
 import PurchaseButton from "../buttons/PurchaseButton";
 import WaveBackground from "../backgrounds/WaveBackground";
 
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 function HeroSection() {
