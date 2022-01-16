@@ -1,122 +1,152 @@
-import React from "react";
-import { fetchUtils, Admin, Resource } from "react-admin";
-import { GYM, GYMEdit, GYMCreate } from "./gym";
-import { aboutList, aboutEdit, aboutCreate } from "./aboutus";
-import { callList, callEdit, callCreate } from "./callUs";
-import { Users, UserEdit, UserCreate } from "./users";
-import jsonServerProvider from "ra-data-json-server";
-import simpleRestProvider from "ra-data-simple-rest";
-import PostIcon from "@material-ui/icons/Book";
-import UserIcon from "@material-ui/icons/Group";
-import CallIcon from "@material-ui/icons/Call";
-import GymIcon from "@material-ui/icons/FitnessCenter";
+import React, { useState } from "react";
+import styled from "styled-components";
+import { themes } from "../../components/styles/ColorStyles";
+import NavBar from "./NavBar";
+import { Switch, Route } from "react-router-dom";
+import GymList from "./gym/GymList";
 import Dashboard from "./Dashboard";
+import GymCreate from "./gym/GymCreate";
+import GymEdit from "./gym/GymEdit";
 import NotFound from "./NotFound";
-import dataProvider from "./dataProvider";
-import MyDataProvider from "./myDataProvider";
+import EquipmentList from "./equipments/EquipmentList";
+import EquipmentCreate from "./equipments/EquipmentCreate";
+import EquipmentEdit from "./equipments/EquipmentEdit";
 
-// const fetchJson = (url, options = {}) => {
-//   options.user = {
-//     authenticated: true,
-//     api_token: localStorage.getItem("x-auth-token"),
-//   };
-//   return fetchUtils.fetchJson(url, options);
-// };
+const ProfilePanel = () => {
+  const [navToggle, setNavToggle] = useState(false);
 
-const httpClient = (url, options = {}) => {
-  const token = localStorage.getItem("x-auth-token");
-  if (!options.headers) {
-    options.headers = new Headers({ Accept: "application/json" });
-  }
-  //   options.headers.set("Authorization", `Bearer ${token}`);
+  const navClick = () => {
+    setNavToggle(!navToggle);
+  };
 
-  if (options.method === "POST") {
-    const body = JSON.parse(options.body);
-    if (body.image) {
-      // const file = body.image;
-      // let form = new FormData();
-      // if (file && file.rawFile) {
-      //   form.append("file", file.rawFile);
-      // }
-      // body.image = form;
-      // options.body = JSON.stringify(body);
-      // console.log("opt :::: " + options.body);
-    }
-  }
-  // case CREATE:
-  // options.method = 'POST'
-
-  // if (resource === 'photos') {
-  //   const { file, ...model } = params.data
-  //   let form = new FormData()
-
-  //   if (file && file.rawFile) {
-  //     form.append('file', file.rawFile)
-  //   }
-
-  //   options.body = form
-  // }
-
-  if (url.includes("?")) url = url + "&api_token=" + token;
-  else url = url + "?api_token=" + token;
-
-  return fetchUtils.fetchJson(url, options);
-};
-
-// const dataProvider = jsonServerProvider(
-//   "http://localhost:8000/api/v1/admin",
-//   httpClient
-// );
-
-// const dataProvider = simpleRestProvider(
-//   "http://localhost:8000/api/v1/admin",
-//   httpClient
-// );
-
-const AdminPanel = () => {
   return (
-    <Admin
-      catchAll={NotFound}
-      dashboard={Dashboard}
-      dataProvider={MyDataProvider}
-    >
-      <Resource
-        name="gym"
-        list={GYM}
-        edit={GYMEdit}
-        create={GYMCreate}
-        icon={GymIcon}
-      />
-      <Resource
-        name="aboutUs"
-        list={aboutList}
-        edit={aboutEdit}
-        create={aboutCreate}
-        icon={PostIcon}
-      />
-      <Resource
-        name="callUs"
-        list={callList}
-        edit={callEdit}
-        create={callCreate}
-        icon={CallIcon}
-      />
-      {/* <Resource
-        name="exercises"
-        list={exerciseList}
-        edit={exerciseEdit}
-        create={exerciseCreate}
-        icon={GymIcon}
-      /> */}
-      <Resource
-        name="users"
-        list={Users}
-        edit={UserEdit}
-        create={UserCreate}
-        icon={UserIcon}
-      />
-    </Admin>
+    <PanelContainer>
+      <Sidebar className={` ${navToggle ? "nav-toggle" : ""}`}>
+        <NavBar />
+      </Sidebar>
+      <NavBtn onClick={navClick}>
+        <div className="line-1"></div>
+        <div className="line-2"></div>
+        <div className="line-3"></div>
+      </NavBtn>
+      <MainContent>
+        <MainContentWrapper>
+          <Switch>
+            <Route exact path="/admin">
+              <Dashboard />
+            </Route>
+
+            <Route exact path="/admin/gym">
+              <GymList />
+            </Route>
+            <Route exact path="/admin/gym/create">
+              <GymCreate />
+            </Route>
+            <Route exact path="/admin/gym/:id">
+              <GymEdit />
+            </Route>
+
+            <Route exact path="/admin/equipments">
+              <EquipmentList />
+            </Route>
+            <Route exact path="/admin/equipment/create">
+              <EquipmentCreate />
+            </Route>
+            <Route exact path="/admin/equipment/:id">
+              <EquipmentEdit />
+            </Route>
+
+            <Route component={NotFound} />
+          </Switch>
+        </MainContentWrapper>
+      </MainContent>
+    </PanelContainer>
   );
 };
 
-export default AdminPanel;
+export default ProfilePanel;
+
+const PanelContainer = styled.div`
+  overflow: hidden;
+  .nav-toggle {
+    transform: translateX(0);
+  }
+`;
+const Sidebar = styled.div`
+  background: rgba(15, 14, 71, 0.3);
+  box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25),
+    inset 0px 0px 0px 0.5px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(40px);
+
+  width: 16%;
+  height: 100vh;
+  background: #fff;
+  position: fixed;
+  z-index: 11;
+
+  transform-origin: left;
+  @media screen and (max-width: 1000px) {
+    transform: translateX(-100%);
+    transition: all 0.4s ease-in-out;
+    width: 30%;
+  }
+
+  @media screen and (max-width: 576px) {
+    width: 50%;
+  }
+`;
+const MainContent = styled.div`
+  width: 84%;
+  margin-left: 16%;
+  min-height: 100vh;
+  /* background: linear-gradient(180deg, #4316db 0%, #9076e7 100%); */
+  background-color: ${themes.light.backgroundColor};
+  display: grid;
+  position: relative;
+  @media screen and (max-width: 1000px) {
+    margin-left: 0;
+    width: 100%;
+  }
+`;
+
+const MainContentWrapper = styled.div`
+  margin: 2rem 7rem;
+  @media (max-width: 576px) {
+    margin: 2rem;
+  }
+`;
+
+const NavBtn = styled.div`
+  position: absolute;
+  z-index: 10;
+  right: 10%;
+  top: 5%;
+  width: 4rem;
+  height: 4rem;
+  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  .line-1,
+  .line-2,
+  .line-3 {
+    height: 0.4rem;
+    width: 100%;
+    background-color: #3858cc;
+    pointer-events: none;
+    display: none;
+    border-radius: 20px;
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+  }
+  @media screen and (max-width: 1000px) {
+    display: block;
+    .line-1,
+    .line-2,
+    .line-3 {
+      display: block;
+    }
+  }
+`;

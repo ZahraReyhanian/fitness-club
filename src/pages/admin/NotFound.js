@@ -1,13 +1,18 @@
-import * as React from "react";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import { Title } from "react-admin";
+import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-export default () => (
-  <Card>
-    <Title title="Not Found" />
-    <CardContent>
-      <h1>404: Page not found</h1>
-    </CardContent>
-  </Card>
-);
+const NotFound = () => {
+  return (
+    <Container>
+      <Row>
+        <Col>
+          <h1>404</h1>
+          <h3>Not Found !</h3>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+export default NotFound;

@@ -64,9 +64,15 @@ const App = () => {
               return <AdminPanel />;
             }}
           />
-          <Route exact path="/">
-            <Home />
-          </Route>
+
+          <PrivateRoute
+            exact
+            path={"/"}
+            render={() => {
+              return <Home />;
+            }}
+          />
+
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>

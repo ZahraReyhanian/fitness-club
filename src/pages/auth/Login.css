@@ -1,15 +1,15 @@
-.btn-primary{
-    color: #fff;
-    background-color: #813AFE !important;
-    border-color: #813AFE !important;
+.btn-primary {
+  color: #fff;
+  background-color: #813afe;
+  border-color: #813afe;
 }
 
-.icon-img{
-    width: 70px;
-    height: 70px;
-    margin-bottom: 2rem;
+.icon-img {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 2rem;
 }
 
-.reset{
-    color: black;
+.reset {
+  color: black;
 }

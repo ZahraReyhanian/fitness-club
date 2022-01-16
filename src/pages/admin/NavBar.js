@@ -7,6 +7,10 @@ import { toast } from "react-toastify";
 import { uploadUserPhoto } from "../../api/api_auth";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import PostIcon from "@material-ui/icons/Book";
+import UserIcon from "@material-ui/icons/Group";
+import CallIcon from "@material-ui/icons/Call";
+import GymIcon from "@material-ui/icons/FitnessCenter";
 
 const NavBar = () => {
   const [imageFile, setImageFile] = useState();
@@ -79,25 +83,17 @@ const NavBar = () => {
         </Profile>
         <NavItems>
           <NavItem>
-            <NavLink to="/profile" exact activeClassName="active">
-              Profile
+            <NavLink to="/admin/gym" exact activeClassName="active">
+              <PostIcon /> gym
             </NavLink>
           </NavItem>
+
           <NavItem>
-            <NavLink to="/setting" exact activeClassName="active">
-              setting
+            <NavLink to="/admin/equipments" exact activeClassName="active">
+              <GymIcon /> equipments
             </NavLink>
           </NavItem>
-          {/* <NavItem>
-            <NavLink to="/profile_exercise" exact activeClassName="active">
-              My Exercise
-            </NavLink>
-          </NavItem> */}
-          <NavItem>
-            <NavLink to="/" exact activeClassName="active">
-              Return to home
-            </NavLink>
-          </NavItem>
+
           <NavItem>
             <NavLink
               to="/signout"
