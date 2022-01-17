@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
+import AvailableIcon from "@material-ui/icons/EventAvailable";
 
 const EquipmentCards = () => {
   return (
@@ -13,6 +14,10 @@ const EquipmentCards = () => {
           </ImageWrapper>
           <TitleWrapper>
             <h5>Treadmill</h5>
+            <p className="text-success">
+              <AvailableIcon />
+              <span>Available</span>
+            </p>
           </TitleWrapper>
         </Col>
       </Row>
@@ -23,9 +28,7 @@ const EquipmentCards = () => {
 export default EquipmentCards;
 
 const CardWrapper = styled.div`
-  padding: 20px;
-
-  height: 298px;
+  padding: 1.5rem 1rem;
 
   background: rgba(255, 255, 255, 0.6);
   border: 0.5px solid rgba(255, 255, 255, 0.6);
@@ -39,6 +42,8 @@ const CardWrapper = styled.div`
 
 const ImageWrapper = styled.div`
   padding: 1rem;
+  display: flex;
+  justify-content: center;
 
   img {
     width: 100%;
@@ -55,7 +60,13 @@ const TitleWrapper = styled.div`
   text-align: center;
 
   h5 {
+    font-size: 18px;
     padding-top: 1rem;
     text-transform: uppercase;
+  }
+
+  span {
+    font-size: 15px;
+    padding-left: 0.3rem;
   }
 `;

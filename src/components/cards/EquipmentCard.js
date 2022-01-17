@@ -15,7 +15,7 @@ const EquipmentCard = () => {
         </Col>
         <Col md={6} sm={6}>
           <LeftWrapper>
-            <img src="images/equipments/download.png" alt="equipment image" />
+            <img src="/images/equipments/download.png" alt="equipment image" />
           </LeftWrapper>
         </Col>
       </Row>

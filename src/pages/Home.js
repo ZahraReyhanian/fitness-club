@@ -5,8 +5,8 @@ import ExerciseSection from "../components/sections/ExerciseSection";
 import InfoSection from "../components/sections/InfoSection";
 import { infoData } from "../components/data/infoData";
 import Footer from "../components/footer/Footer";
-import ServiceSection from "../components/sections/ServiceSection";
 import { getHome } from "../api/api_home";
+import EquipmentSection from "../components/sections/EquipmentSection";
 
 function Home() {
   const [home, setHome] = useState([]);
@@ -24,7 +24,7 @@ function Home() {
       <HeroSection />
       <ExerciseSection />
       <InfoSection {...infoData} />
-      <ServiceSection />
+      <EquipmentSection />
       <Footer />
     </Layout>
   );
