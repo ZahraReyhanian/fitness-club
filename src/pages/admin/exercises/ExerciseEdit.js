@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Button, Col, Container, Row, Form, FormLabel } from "react-bootstrap";
 import styled from "styled-components";
 import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import PanelTitle from "../../../components/title/PanelTitle";
 import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
-import { createEquipment } from "../../../api/admin/equipment_api";
+import {
+  getEditEquipment,
+  updateEquipment,
+} from "../../../api/admin/equipment_api";
+import { useLocation, useParams } from "react-router-dom";
 
 const EquipmentCreate = () => {
   const input = React.useRef();
@@ -16,10 +20,24 @@ const EquipmentCreate = () => {
   const [imageFile, setImageFile] = useState();
   const [imagePath, setImagePath] = useState();
 
+  const { id } = useParams();
+
+  const location = useLocation();
+  useEffect(() => {
+    getEditEquipment(id, (isOk, data) => {
+      if (!isOk) return alert(data.message);
+      else {
+        setEquipmentName(data.equipmentName);
+        setDeviceHealthStatus(data.deviceHealthStatus);
+        setExplain(data.explain);
+        setImagePath(data.image);
+      }
+    });
+  }, [location]);
+
   const validateData = (equipment) => {
     if (!equipment.equipmentName) return "Enter Name";
-    if (!equipment.deviceHealthStatus) return "Enter Status";
-    if (!equipment.image) return "Enter Image";
+    if (equipment.deviceHealthStatus == null) return "Enter Status";
   };
 
   const onChangeImg = (e) => {
@@ -34,14 +52,14 @@ const EquipmentCreate = () => {
     }
   };
 
-  const handleCreate = () => {
+  const handleEdit = () => {
     const equipment = {
       equipmentName: equipmentName,
       explain: explain,
       deviceHealthStatus: deviceHealthStatus,
       image: imageFile,
     };
-    console.log(equipment);
+
     const error = validateData(equipment);
     if (error) return toast.warn(error);
 
@@ -50,7 +68,7 @@ const EquipmentCreate = () => {
     formData.append("explain", explain);
     formData.append("deviceHealthStatus", deviceHealthStatus);
     formData.append("image", imageFile);
-    createEquipment(formData, (isOK, data) => {
+    updateEquipment(id, formData, (isOK, data) => {
       if (isOK) {
         toast.success("Successful");
       } else toast.error(data);
@@ -62,7 +80,7 @@ const EquipmentCreate = () => {
       <Container mt={3}>
         <Row>
           <Col md={12} sm={12}>
-            <PanelTitle title={"Equipment Create"} />
+            <PanelTitle title={"Equipment Edit"} />
           </Col>
         </Row>
         <FormRow>
@@ -78,6 +96,12 @@ const EquipmentCreate = () => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicStatus">
+                {/* <Form.Control
+                  value={deviceHealthStatus}
+                  onChange={(e) => setDeviceHealthStatus(e.target.value)}
+                  type="text"
+                  placeholder="Enter status"
+                ></Form.Control> */}
                 <FormLabel component="legend">Status</FormLabel>
                 <RadioGroup
                   row
@@ -121,10 +145,10 @@ const EquipmentCreate = () => {
               </Form.Group>
 
               <Form.Group>
-                <img src={imagePath} alt="" />
+                <img src={"http://localhost:8000//" + imagePath} alt="" />
               </Form.Group>
 
-              <SubmitButton variant="primary" onClick={handleCreate}>
+              <SubmitButton variant="primary" onClick={handleEdit}>
                 Submit
               </SubmitButton>
             </Form>

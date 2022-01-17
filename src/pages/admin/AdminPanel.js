@@ -11,6 +11,9 @@ import NotFound from "./NotFound";
 import EquipmentList from "./equipments/EquipmentList";
 import EquipmentCreate from "./equipments/EquipmentCreate";
 import EquipmentEdit from "./equipments/EquipmentEdit";
+import ExerciseList from "./exercises/ExerciseList";
+import ExerciseCreate from "./exercises/ExerciseCreate";
+import ExerciseEdit from "./exercises/ExerciseEdit";
 
 const ProfilePanel = () => {
   const [navToggle, setNavToggle] = useState(false);
@@ -54,6 +57,16 @@ const ProfilePanel = () => {
             </Route>
             <Route exact path="/admin/equipment/:id">
               <EquipmentEdit />
+            </Route>
+
+            <Route exact path="/admin/exercises">
+              <ExerciseList />
+            </Route>
+            <Route exact path="/admin/exercise/create">
+              <ExerciseCreate />
+            </Route>
+            <Route exact path="/admin/exercise/:id">
+              <ExerciseEdit />
             </Route>
 
             <Route component={NotFound} />

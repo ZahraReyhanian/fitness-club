@@ -95,6 +95,12 @@ const NavBar = () => {
           </NavItem>
 
           <NavItem>
+            <NavLink to="/admin/exercises" exact activeClassName="active">
+              <GymIcon /> exercises
+            </NavLink>
+          </NavItem>
+
+          <NavItem>
             <NavLink
               to="/signout"
               exact
@@ -109,7 +115,7 @@ const NavBar = () => {
           </NavItem>
         </NavItems>
         <NavFooter>
-          <p>Your Profile Panel</p>
+          <p>Admin Panel</p>
         </NavFooter>
         <Menu
           open={anchorMenu}

@@ -78,6 +78,12 @@ const EquipmentCreate = () => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicStatus">
+                {/* <Form.Control
+                  value={deviceHealthStatus}
+                  onChange={(e) => setDeviceHealthStatus(e.target.value)}
+                  type="text"
+                  placeholder="Enter status"
+                ></Form.Control> */}
                 <FormLabel component="legend">Status</FormLabel>
                 <RadioGroup
                   row
