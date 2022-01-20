@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
 import { Row, Col, Form, FormLabel, Button } from "react-bootstrap";
 import Title from "./Title";
 import styled from "styled-components";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { toast } from "react-toastify";
-import { updateProfileSetting } from "../../api/api_home";
+import { getUserPanel, updateProfileSetting } from "../../api/api_home";
 
 const ProfileSetting = () => {
   const [email, setEmail] = useState();
@@ -15,6 +15,23 @@ const ProfileSetting = () => {
   const [age, setAge] = useState();
   const [gender, setGender] = useState();
   const [problem, setProblem] = useState();
+
+  useEffect(() => {
+    getUserPanel((isOk, data) => {
+      if (!isOk) return alert(data.message);
+      else {
+        const user = data.user;
+        const student = data.user.student[0];
+
+        setEmail(user.email);
+        setName(user.name);
+        setWeight(student.weight);
+        setHeight(student.Height);
+        setAge(student.age);
+        setGender(student.gender);
+      }
+    });
+  }, []);
 
   const handleProfile = () => {
     const user = {

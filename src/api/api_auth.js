@@ -26,6 +26,34 @@ export const registerApi = (user, callback) => {
     });
 };
 
+export const resetEmailApi = (user, callback) => {
+  getAxiosInstanceAuth()
+    .post("password/email", user)
+    .then((response) => {
+      const data = response.data;
+      callback(true, data);
+    })
+    .catch((error) => {
+      console.log(error);
+      callback(false, error);
+    });
+};
+
+export const resetApi = (token, user, callback) => {
+  user.token = token;
+  console.log(user);
+  getAxiosInstanceAuth()
+    .post("auth/password/reset", user)
+    .then((response) => {
+      const data = response.data;
+      callback(true, data);
+    })
+    .catch((error) => {
+      console.log(error);
+      callback(false, error);
+    });
+};
+
 export const uploadUserPhoto = (photo, callback) => {
   getAxiosInstanceApi()
     .post(

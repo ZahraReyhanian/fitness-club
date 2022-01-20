@@ -31,7 +31,7 @@ const EquipmentCreate = () => {
         setEquipmentName(data.equipmentName);
         setDeviceHealthStatus(data.deviceHealthStatus);
         setExplain(data.explain);
-        setImagePath(data.image);
+        setImagePath("http://localhost:8000//" + data.image);
       }
     });
   }, [location]);
@@ -97,12 +97,6 @@ const EquipmentCreate = () => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicStatus">
-                {/* <Form.Control
-                  value={deviceHealthStatus}
-                  onChange={(e) => setDeviceHealthStatus(e.target.value)}
-                  type="text"
-                  placeholder="Enter status"
-                ></Form.Control> */}
                 <FormLabel component="legend">Status</FormLabel>
                 <RadioGroup
                   row
@@ -146,7 +140,7 @@ const EquipmentCreate = () => {
               </Form.Group>
 
               <Form.Group>
-                <img src={"http://localhost:8000//" + imagePath} alt="" />
+                <img src={imagePath} alt="image" />
               </Form.Group>
 
               <SubmitButton variant="primary" onClick={handleEdit}>

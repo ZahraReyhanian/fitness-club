@@ -22,7 +22,7 @@ export const getEditExercise = (data, callback) => {
         localStorage.getItem("x-auth-token")
     )
     .then((response) => {
-      const dataRes = response.data.data.SP;
+      const dataRes = response.data.data.exercise;
       callback(true, dataRes);
     })
     .catch((error) => {

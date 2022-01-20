@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { getExercise } from "../../api/api_home";
 import ExerciseCard from "../../components/cards/ExerciseCard";
 import { exerciseData } from "../../components/data/exerciseData";
 import Layout from "../../components/layout/layout";
@@ -7,6 +8,17 @@ import { Container } from "../../components/styles/GlobalStyles";
 import TitleComponent from "../../components/title/TitleComponent";
 
 const AllExercise = () => {
+  const [exercises, setExercises] = useState([]);
+
+  useEffect(() => {
+    getExercise((isOk, data) => {
+      if (!isOk) return alert(data.message);
+      else {
+        setExercises(data.data.exercise);
+      }
+    });
+  }, []);
+
   return (
     <Layout>
       <Background>
@@ -18,7 +30,7 @@ const AllExercise = () => {
             />
           </ExerciseTitle>
           <Wrapper>
-            {exerciseData.map((exercise) => {
+            {exercises.map((exercise) => {
               return <ExerciseCard data={exercise} />;
             })}
           </Wrapper>

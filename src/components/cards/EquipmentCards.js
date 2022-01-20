@@ -4,19 +4,23 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 import AvailableIcon from "@material-ui/icons/EventAvailable";
 
-const EquipmentCards = () => {
+const EquipmentCards = ({ data }) => {
+  const status = data.deviceHealthStatus;
   return (
     <CardWrapper>
       <Row>
         <Col md={12} sm={12}>
           <ImageWrapper>
-            <img src="images/equipments/download.png" alt="equipment image" />
+            <img
+              src={"http://localhost:8000/" + data.image.original}
+              alt="equipment image"
+            />
           </ImageWrapper>
           <TitleWrapper>
-            <h5>Treadmill</h5>
-            <p className="text-success">
+            <h5>{data.equipmentName}</h5>
+            <p className={status ? "text-success" : "text-danger"}>
               <AvailableIcon />
-              <span>Available</span>
+              <span>{status ? "Available" : "Unavailable"}</span>
             </p>
           </TitleWrapper>
         </Col>
@@ -46,6 +50,7 @@ const ImageWrapper = styled.div`
   justify-content: center;
 
   img {
+    height: 166px;
     width: 100%;
     max-width: 200px;
     transition: all 0.2s ease-in-out;

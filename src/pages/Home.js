@@ -7,21 +7,34 @@ import { infoData } from "../components/data/infoData";
 import Footer from "../components/footer/Footer";
 import { getHome } from "../api/api_home";
 import EquipmentSection from "../components/sections/EquipmentSection";
+import { getAxiosInstanceApi } from "../api/api";
 
 function Home() {
   const [home, setHome] = useState([]);
 
-  useEffect(() => {
-    getHome((isOk, data) => {
-      if (!isOk) return alert("alert: " + data.message);
-      else setHome(data);
-      console.log(data);
-    });
+  useEffect(async () => {
+    await getAxiosInstanceApi()
+      .get("?api_token=" + localStorage.getItem("x-auth-token"))
+      .then((response) => {
+        const data = response.data;
+        localStorage.setItem(
+          "image",
+          "http://localhost:8000/" + data.data.user.student[0].image
+        );
+        setHome(data.data);
+        console.log(home);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("alert: " + error.message);
+      });
   }, []);
 
+  if (!home.gym) return "loading data ...";
+  else console.log(home);
   return (
     <Layout>
-      <HeroSection />
+      <HeroSection data={home.gym} />
       <ExerciseSection />
       <InfoSection {...infoData} />
       <EquipmentSection />

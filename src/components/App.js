@@ -12,6 +12,7 @@ import NotFound from "../pages/404";
 import Exercise from "../pages/exercise/Exercise";
 import AllExercise from "../pages/exercise/AllExercise";
 import AllEquipment from "../pages/equipment/AllEquipment";
+import Reset from "../pages/auth/Reset";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <AuthRoute path={"/login"} component={AuthPage} />
+          <AuthRoute path={"/reset/:token"} component={Reset} />
           <PrivateRoute
             path={"/profile"}
             render={() => {

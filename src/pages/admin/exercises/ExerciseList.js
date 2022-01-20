@@ -52,7 +52,7 @@ const ExerciseList = () => {
                 <tr>
                   <th>#</th>
                   <th>name</th>
-                  <th>status</th>
+                  <th>level</th>
                   <th>edit</th>
                   <th>delete</th>
                 </tr>
@@ -62,7 +62,7 @@ const ExerciseList = () => {
                   <tr>
                     <td>{item.id}</td>
                     <td>{item.exerciseName}</td>
-                    <td>{item.deviceHealthStatus}</td>
+                    <td>{item.level}</td>
                     <td>
                       <Link to={`/admin/exercise/${item.id}`}>
                         <Button variant="primary">edit</Button>

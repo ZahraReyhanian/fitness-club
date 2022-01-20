@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { H1, MediumText } from "../styles/TestStyles";
 import { themes } from "../styles/ColorStyles";
@@ -7,32 +7,33 @@ import WaveBackground from "../backgrounds/WaveBackground";
 
 import { Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { getHome } from "../../api/api_home";
 
-function HeroSection() {
+function HeroSection({ data }) {
   return (
-    <Wrapper>
-      <WaveBackground />
-      <ContentWrapper>
-        <TextWrapper md={5} sm={12}>
-          <Title>
-            Health Club
-            <br /> and Fitness of <span>Energy</span>
-          </Title>
-          <Description>
-            oining a health club, gym, or fitness studio is the first step to
-            improving your health, and IHRSA—the fitness industry’s trade
-            association—knows finding the right facility is important. And we’re
-            here to help you access free online workouts during a time when many
-            clubs are closed. Here, you’ll discover all the resources you need
-            to select the IHRSA-member club that fits your lifestyle.
-          </Description>
-          <PurchaseButton title="Start Now!" />
-        </TextWrapper>
-        <ImgWrapper md={7} sm={12}>
-          <img src="/images/home/home.png" alt="home" />
-        </ImgWrapper>
-      </ContentWrapper>
-    </Wrapper>
+    <>
+      {/* {gym !== undefined && ( */}
+      <Wrapper>
+        <WaveBackground />
+        <ContentWrapper>
+          <TextWrapper md={5} sm={12}>
+            <Title>
+              Health Club
+              <br /> and Fitness of <span>{data.gymName}</span>
+            </Title>
+            <Description>{data.gymText}</Description>
+            <PurchaseButton title="Start Now!" />
+          </TextWrapper>
+          <ImgWrapper md={7} sm={12}>
+            <img
+              src={"http://localhost:8000/" + data.image.original}
+              alt="home"
+            />
+          </ImgWrapper>
+        </ContentWrapper>
+      </Wrapper>
+      {/* )} */};
+    </>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { loginApi, registerApi } from "../../api/api_auth";
+import { loginApi, registerApi, resetEmailApi } from "../../api/api_auth";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import Button2 from "react-bootstrap/Button";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -28,6 +28,9 @@ const AuthPage = () => {
   const [passwordRegister, setPasswordRegister] = useState();
   const [confPasswordRegister, setConfPasswordRegister] = useState();
 
+  //reset state
+  const [emailReset, setEmailReset] = useState();
+
   const handleChangeTab = (e, newValue) => {
     if (tab == REG_TAB_VALUE) setTab(LOGIN_TAB_VALUE);
     else setTab(REG_TAB_VALUE);
@@ -47,6 +50,25 @@ const AuthPage = () => {
     if (!user.name) return "نام را وارد كنید";
     if (!user.password) return "رمز عبور را وارد كنيد";
     if (user.password != user.confirmPassword) return "رمز عبور را تاييد كنيد";
+  };
+
+  const handleResetPassword = () => {
+    const user = {
+      email: emailReset,
+    };
+
+    if (!user.email) return toast.warn("Enter Email");
+
+    // user.confPasswordRegister = undefined;
+    resetEmailApi(user, (isOk, data) => {
+      if (!isOk) return toast.error(data);
+
+      const delayInMilliseconds = 1000; //1 second
+
+      setTimeout(function () {
+        toast.success("Check your email !");
+      }, delayInMilliseconds);
+    });
   };
 
   const handleRegister = () => {
@@ -224,14 +246,17 @@ const AuthPage = () => {
                   <Form>
                     <Form.Group className="mb-3" controlId="formBasicemail">
                       <Form.Control
-                        value={emailRegister}
-                        onChange={(e) => setEmailRegister(e.target.value)}
+                        value={emailReset}
+                        onChange={(e) => setEmailReset(e.target.value)}
                         type="text"
                         placeholder="Enter email"
                       />
                     </Form.Group>
 
-                    <Button2 variant="primary w-100" onClick={handleRegister}>
+                    <Button2
+                      variant="primary w-100"
+                      onClick={handleResetPassword}
+                    >
                       Reset Password
                     </Button2>
 

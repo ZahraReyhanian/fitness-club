@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import EquipmentCards from "../../components/cards/EquipmentCards";
 import { exerciseData } from "../../components/data/exerciseData";
@@ -7,8 +7,20 @@ import TitleComponent from "../../components/title/TitleComponent";
 
 import { Container, Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { getEquipment } from "../../api/api_home";
 
 const AllEquipment = () => {
+  const [equipments, setEquipments] = useState([]);
+
+  useEffect(() => {
+    getEquipment((isOk, data) => {
+      if (!isOk) return alert(data.message);
+      else {
+        setEquipments(data.data.sportEquipment);
+      }
+    });
+  }, []);
+
   return (
     <Layout>
       <Background>
@@ -21,10 +33,10 @@ const AllEquipment = () => {
           </ExerciseTitle>
           <Wrapper>
             <Row>
-              {exerciseData.map((exercise) => {
+              {equipments.map((equipment) => {
                 return (
                   <Col lg={3} md={4} sm={12}>
-                    <EquipmentCards />
+                    <EquipmentCards data={equipment} />
                   </Col>
                 );
               })}
