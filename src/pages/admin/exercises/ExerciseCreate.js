@@ -18,6 +18,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
 import { MenuProps, useStyles, options } from "./utils";
+import SelectEquipments from "../../../components/selects/SelectEquipments";
 
 const ExerciseCreate = () => {
   const input = React.useRef();
@@ -45,10 +46,6 @@ const ExerciseCreate = () => {
 
   const [selectedValue, setSelectedValue] = useState(null);
 
-  useEffect(() => {
-    fetchData();
-  });
-
   //multiselect
   const classes = useStyles();
   const [selected, setSelected] = useState([]);
@@ -66,37 +63,6 @@ const ExerciseCreate = () => {
   };
 
   //end multiselect
-
-  // // handle input change event
-  // const handleInputChange = (value) => {
-  //   setSP(value);
-  //   console.log("SP : " + value);
-  // };
-
-  // handle selection
-  const handleChange = (value) => {
-    setSP(value.id);
-    setSelectedValue(value);
-    console.log(value);
-  };
-
-  // handle input change event
-  const handleInputChange = (value) => {
-    setSelectedValue(value);
-    console.log(value);
-  };
-
-  const fetchData = () => {
-    return getAxiosInstanceAuth()
-      .get(
-        "/admin/sportsEquipment?api_token=" +
-          localStorage.getItem("x-auth-token")
-      )
-      .then((response) => {
-        const dataRes = response.data.data.SP.docs;
-        return dataRes;
-      });
-  };
 
   const validateData = (exercise) => {
     if (!exercise.exerciseName) return "Enter Name";
@@ -161,7 +127,6 @@ const ExerciseCreate = () => {
     formData.append("sportsequipment", SP);
     formData.append("image", imageFile);
     formData.append("videoURL", videoURLFile);
-    // formData.append("BMIType", JSON.stringify(selected));
     selected.forEach((select, index) =>
       formData.append(`BMIType[${index}]`, select)
     );
@@ -192,6 +157,14 @@ const ExerciseCreate = () => {
                   type="text"
                   placeholder="Enter name"
                 ></Form.Control>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formBasicEquipment">
+                <FormLabel component="legend">Equipment</FormLabel>
+                <SelectEquipments
+                  value={SP}
+                  handleChange={(e) => setSP(e.target.value)}
+                ></SelectEquipments>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicSet">
@@ -349,7 +322,7 @@ const ExerciseCreate = () => {
                 />
               </Form.Group>
 
-              <Form.Group>
+              {/* <Form.Group>
                 <FormLabel>equipment</FormLabel>
                 <AsyncSelect
                   cacheOptions
@@ -361,7 +334,7 @@ const ExerciseCreate = () => {
                   onInputChange={handleInputChange}
                   onChange={handleChange}
                 />
-              </Form.Group>
+              </Form.Group> */}
 
               <Form.Group>
                 <FormLabel>main image</FormLabel>

@@ -12,7 +12,6 @@ import { getHome } from "../../api/api_home";
 function HeroSection({ data }) {
   return (
     <>
-      {/* {gym !== undefined && ( */}
       <Wrapper>
         <WaveBackground />
         <ContentWrapper>
@@ -32,7 +31,6 @@ function HeroSection({ data }) {
           </ImgWrapper>
         </ContentWrapper>
       </Wrapper>
-      {/* )} */};
     </>
   );
 }
@@ -51,13 +49,8 @@ const ContentWrapper = styled(Row)`
   max-width: 1234px;
   margin: 0 auto;
   padding: 200px 30px;
-  //display: grid;
-  //grid-template-columns: 457px auto;
-  //grid-gap: 10px;
 
   @media (max-width: 450px) {
-    //grid-template-columns: auto;
-    //gap: 60px;
     padding: 150px 20px 250px;
   }
 `;

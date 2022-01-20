@@ -1,12 +1,43 @@
 import React from "react";
 import Select from "@material-ui/core/Select";
 
-const SelectEquipments = () => {
+const SelectEquipments = ({ handleChange, value }) => {
+  const [loading, setLoading] = React.useState(true);
+  const [items, setItems] = React.useState([
+    { label: "Loading ...", value: "" },
+  ]);
+
+  React.useEffect(() => {
+    let unmounted = false;
+    async function getCharacters() {
+      const response = await fetch(
+        "http://localhost:8000/api/v1/admin/sportsEquipment?api_token=" +
+          localStorage.getItem("x-auth-token")
+      );
+      const body = await response.json();
+      if (!unmounted) {
+        setItems(
+          body.data.SP.docs.map((item) => ({
+            label: item.equipmentName,
+            value: item.id,
+          }))
+        );
+      }
+      setLoading(false);
+    }
+    getCharacters();
+    return () => {
+      unmounted = true;
+    };
+  }, []);
+
   return (
-    <Select>
-      <option value="Luke Skywalker">Luke Skywalker</option>
-      <option value="C-3PO">C-3PO</option>
-      <option value="R2-D2">R2-D2</option>
+    <Select disabled={loading} value={value} onChange={handleChange}>
+      {items.map(({ label, value }) => (
+        <option key={value} value={value}>
+          {label}
+        </option>
+      ))}
     </Select>
   );
 };

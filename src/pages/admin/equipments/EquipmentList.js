@@ -62,7 +62,9 @@ const EquipmentList = () => {
                   <tr>
                     <td>{item.id}</td>
                     <td>{item.equipmentName}</td>
-                    <td>{item.deviceHealthStatus}</td>
+                    <td>
+                      {item.deviceHealthStatus ? "Available" : "Unavailable"}
+                    </td>
                     <td>
                       <Link to={`/admin/equipment/${item.id}`}>
                         <Button variant="primary">edit</Button>
