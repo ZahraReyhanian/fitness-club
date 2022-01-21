@@ -48,7 +48,7 @@ const NavBar = () => {
 
         setTimeout(function () {
           localStorage.setItem("image", addr + data.data.imagePath);
-          toast.success("عكس شما با موفقيت آپلود شد");
+          toast.success("Successful !");
         }, delayInMilliseconds);
       });
     }

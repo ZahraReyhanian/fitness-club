@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import PurchaseButton from "../buttons/PurchaseButton";
 import ExerciseCard from "../cards/ExerciseCard";
-import { exerciseData } from "../data/exerciseData";
 import { Container } from "../styles/GlobalStyles";
 import TitleComponent from "../title/TitleComponent";
 
-export default function ExerciseSection() {
+export default function ExerciseSection({ data }) {
+  if (!data) return "loading data ...";
+  else console.log(data);
   return (
     <Container>
       <TitleComponent
@@ -14,7 +15,7 @@ export default function ExerciseSection() {
         subtitle="exercise and necesary description"
       />
       <Wrapper>
-        {exerciseData.map((exercise) => {
+        {data.map((exercise) => {
           return <ExerciseCard data={exercise} />;
         })}
       </Wrapper>

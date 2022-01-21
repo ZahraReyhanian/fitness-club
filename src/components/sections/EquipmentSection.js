@@ -2,26 +2,15 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import TitleComponent from "../title/TitleComponent";
 import EquipmentCards from "../../components/cards/EquipmentCards";
-import { exerciseData } from "../../components/data/exerciseData";
-import Layout from "../../components/layout/layout";
 
 import { Container, Col, Row } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import PurchaseButton from "../buttons/PurchaseButton";
 import { getEquipment } from "../../api/api_home";
 
-const EquipmentSection = () => {
-  const [equipments, setEquipments] = useState([]);
-
-  useEffect(() => {
-    getEquipment((isOk, data) => {
-      if (!isOk) return alert(data.message);
-      else {
-        setEquipments(data.data.sportEquipment);
-      }
-    });
-  }, []);
-
+const EquipmentSection = ({ data }) => {
+  if (!data) return "loading data ...";
+  else console.log("eeeeeeeeeeeeee : " + data);
   return (
     <EquipmentContainer>
       <Container>
@@ -31,7 +20,7 @@ const EquipmentSection = () => {
         />
         <Wrapper>
           <Row>
-            {equipments.map((equipment) => {
+            {data.map((equipment) => {
               return (
                 <Col lg={3} md={3} sm={6}>
                   <EquipmentCards data={equipment} />
@@ -52,7 +41,7 @@ export default EquipmentSection;
 
 const EquipmentContainer = styled.div`
   background: linear-gradient(180deg, #e6e9fa 0%, #f2f6ff 100%);
-  padding-top: 70px;
+  padding-top: 8rem;
   padding-bottom: 150px;
   margin: 0;
 `;

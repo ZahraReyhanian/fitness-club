@@ -41,15 +41,15 @@ const AuthPage = () => {
   };
 
   const validateLogin = (user) => {
-    if (!user.email) return "نام كاربری را وارد كنید";
-    if (!user.password) return "رمز عبور را وارد كنيد";
+    if (!user.email) return "Enter email";
+    if (!user.password) return "Enter password";
   };
 
   const validateRegister = (user) => {
-    if (!user.email) return "نام كاربری را وارد كنید";
-    if (!user.name) return "نام را وارد كنید";
-    if (!user.password) return "رمز عبور را وارد كنيد";
-    if (user.password != user.confirmPassword) return "رمز عبور را تاييد كنيد";
+    if (!user.email) return "Enter email";
+    if (!user.name) return "Enter name";
+    if (!user.password) return "Enter password";
+    if (user.password != user.confirmPassword) return "Confirm password";
   };
 
   const handleResetPassword = () => {
@@ -88,7 +88,7 @@ const AuthPage = () => {
       const delayInMilliseconds = 1000; //1 second
 
       setTimeout(function () {
-        toast.success("شما با موفقيت ثبت نام شديد");
+        toast.success("Successful !");
         localStorage.setItem("x-auth-token", data.data.token);
         localStorage.setItem("email", data.data.user.email);
         localStorage.setItem("name", data.data.user.name);
@@ -111,7 +111,7 @@ const AuthPage = () => {
       const delayInMilliseconds = 1000; //1 second
 
       setTimeout(function () {
-        toast.success("شما با موفقيت وارد شديد");
+        toast.success("Successful !");
         localStorage.setItem("x-auth-token", data.data.token);
         localStorage.setItem("email", data.data.user.email);
         localStorage.setItem("name", data.data.user.name);

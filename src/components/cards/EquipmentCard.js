@@ -3,14 +3,14 @@ import { Row, Col } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 
-const EquipmentCard = () => {
+const EquipmentCard = ({ name, image }) => {
   return (
     <CardWrapper>
       <Row>
         <Col md={6} sm={6}>
           <RightWrapper>
             <h6>Equipment</h6>
-            <h4>Treadmill</h4>
+            <h4>{name}</h4>
           </RightWrapper>
         </Col>
         <Col md={6} sm={6}>

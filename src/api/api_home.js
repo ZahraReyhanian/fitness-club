@@ -12,7 +12,18 @@ export const getHome = (callback) => {
       callback(true, data);
     })
     .catch((error) => {
-      console.log(error);
+      callback(false, error);
+    });
+};
+
+export const getCallUs = (callback) => {
+  getAxiosInstanceApi()
+    .get("call-us?api_token=" + localStorage.getItem("x-auth-token"))
+    .then((response) => {
+      const data = response.data;
+      callback(true, data);
+    })
+    .catch((error) => {
       callback(false, error);
     });
 };
@@ -29,7 +40,23 @@ export const getEquipment = (callback) => {
       callback(false, error);
     });
 };
-export const getExercise = (callback) => {
+
+export const getExercise = (id, callback) => {
+  getAxiosInstanceApi()
+    .get(
+      "exercise/" + id + "?api_token=" + localStorage.getItem("x-auth-token")
+    )
+    .then((response) => {
+      const data = response.data;
+      callback(true, data);
+    })
+    .catch((error) => {
+      console.log(error);
+      callback(false, error);
+    });
+};
+
+export const getExercises = (callback) => {
   getAxiosInstanceApi()
     .get("exercises?api_token=" + localStorage.getItem("x-auth-token"))
     .then((response) => {

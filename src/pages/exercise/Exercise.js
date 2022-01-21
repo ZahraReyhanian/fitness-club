@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout/layout";
 import ExerciseBackground from "../../components/backgrounds/ExerciseBackground";
 import styled from "styled-components";
@@ -8,8 +8,30 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Description from "./Description";
 import { Checkbox } from "@material-ui/core";
 import { Timer } from "@material-ui/icons";
+import { useLocation, useParams } from "react-router-dom";
+import { getExercise } from "../../api/api_home";
 
 const Exercise = () => {
+  const [exercise, setExercise] = useState();
+  const [equipment, setEquipment] = useState({
+    equipmentName: "name",
+    image: "image",
+  });
+
+  const location = useLocation();
+  useEffect(() => {
+    const id = location.pathname.substring(10);
+    getExercise(id, (isOk, data) => {
+      if (!isOk) return alert(data.message);
+      else {
+        setExercise(data.data.exercise);
+        setEquipment(data.data.sportsequipment);
+      }
+    });
+  }, [location]);
+
+  if (!exercise) return "loading data ...";
+  else console.log(exercise);
   return (
     <Layout>
       <ExerciseContainer>
@@ -17,33 +39,36 @@ const Exercise = () => {
         <ContentWrapper>
           <ExerciseGifTitle md={12} sm={12}>
             <ExerciseGif>
-              <img src="/images/exercise.gif" alt="exercise" />
+              <img
+                src={"http://localhost:8000//" + exercise.videoURL}
+                alt="exercise"
+              />
             </ExerciseGif>
             <ExerciseTitle>
-              <h1>Working on Treadmill</h1>
-              <Timer /> 3 set - low level
+              <h1>{exercise.exerciseName}</h1>
+              <Timer />{" "}
+              {exercise.set !== "0"
+                ? exercise.set + " set " + exercise.repeat + " times "
+                : exercise.exerciseTime + " min"}{" "}
+              - {exercise.level} level
             </ExerciseTitle>
           </ExerciseGifTitle>
         </ContentWrapper>
         <EquipmentCardSection>
           <CardCol md={12} sm={12}>
-            <EquipmentCard />
+            <EquipmentCard
+              name={equipment.equipmentName}
+              image={equipment.image}
+            />
           </CardCol>
         </EquipmentCardSection>
         <TextWrapper>
           <TextContainer>
             <Description
               title={"Description"}
-              text={
-                "Cardio exercising with treadmill walk helps to lose weight or just warm up before the workout."
-              }
+              text={exercise.exerciseDescription}
             />
-            <Description
-              title={"Tip"}
-              text={
-                "Take your time on the treadmill and be patient for good cardio."
-              }
-            />
+            <Description title={"Tip"} text={exercise.tip} />
           </TextContainer>
         </TextWrapper>
         <Row>

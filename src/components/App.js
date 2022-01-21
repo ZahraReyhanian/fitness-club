@@ -40,7 +40,7 @@ const App = () => {
             }}
           />
           <PrivateRoute
-            path={"/exercise/:exercise"}
+            path={"/exercise/:id"}
             render={() => {
               return <Exercise />;
             }}

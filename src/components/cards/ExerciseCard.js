@@ -7,12 +7,18 @@ export default function ExerciseCard(props) {
   return (
     <Exercise key={exercise.id}>
       <ExerciseContent>
-        <img src={exercise.image} alt="exercise" />
-        <a href={exercise.link} className="exercise-link">
-          {exercise.title}
+        <img src={"http://localhost:8000//" + exercise.image} alt="exercise" />
+        <a
+          href={"http://localhost:3000/exercise/" + exercise._id}
+          className="exercise-link"
+        >
+          {exercise.exerciseName}
         </a>
         <p className="exercise-desc">
-          <Timer /> 3 set - low level
+          <Timer />{" "}
+          {exercise.set !== "0"
+            ? exercise.set + " set " + exercise.repeat + " times "
+            : exercise.exerciseTime + " min"}{" "}
         </p>
       </ExerciseContent>
     </Exercise>
@@ -57,7 +63,7 @@ const ExerciseContent = styled.div`
     color: inherit;
     font-family: inherit;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     margin: 2rem 0;
     padding-bottom: 1rem;

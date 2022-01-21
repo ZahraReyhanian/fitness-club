@@ -6,8 +6,6 @@ import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import PanelTitle from "../../../components/title/PanelTitle";
 import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
 import { createExercise } from "../../../api/admin/exercise_api";
-import AsyncSelect from "react-select/async";
-import { getAxiosInstanceAuth } from "../../../api/api";
 
 import Checkbox from "@material-ui/core/Checkbox";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -124,7 +122,7 @@ const ExerciseCreate = () => {
     formData.append("level", level);
     formData.append("tip", tip);
     formData.append("gender", gender);
-    formData.append("sportsequipment", SP);
+    formData.append("sportsEquipment", SP);
     formData.append("image", imageFile);
     formData.append("videoURL", videoURLFile);
     selected.forEach((select, index) =>
@@ -346,7 +344,7 @@ const ExerciseCreate = () => {
               </Form.Group>
 
               <Form.Group>
-                <img src={imagePath} alt="" />
+                <img width="300" height="300" src={imagePath} alt="image" />
               </Form.Group>
 
               <Form.Group>
@@ -359,7 +357,7 @@ const ExerciseCreate = () => {
               </Form.Group>
 
               <Form.Group>
-                <img src={videoURLPath} alt="" />
+                <img width="300" height="300" src={videoURLPath} alt="gif" />
               </Form.Group>
 
               <SubmitButton variant="primary" onClick={handleCreate}>

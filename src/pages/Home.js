@@ -4,13 +4,15 @@ import HeroSection from "../components/sections/HeroSection";
 import ExerciseSection from "../components/sections/ExerciseSection";
 import InfoSection from "../components/sections/InfoSection";
 import { infoData } from "../components/data/infoData";
-import Footer from "../components/footer/Footer";
 import { getHome } from "../api/api_home";
 import EquipmentSection from "../components/sections/EquipmentSection";
 import { getAxiosInstanceApi } from "../api/api";
+import { toast } from "react-toastify";
 
 function Home() {
   const [home, setHome] = useState([]);
+  const [equipments, setEquipments] = useState([]);
+  const [exercises, setExercises] = useState([]);
 
   useEffect(async () => {
     await getAxiosInstanceApi()
@@ -22,11 +24,17 @@ function Home() {
           "http://localhost:8000/" + data.data.user.student[0].image
         );
         setHome(data.data);
+        setEquipments(home.sportEquipment);
+        setExercises(home.studentExercise);
         console.log(home);
       })
       .catch((error) => {
+        toast.error("Wait! Something happend :(");
         console.log(error);
-        alert("alert: " + error.message);
+        if (error.status == 401) {
+          localStorage.clear();
+          window.location.reload();
+        }
       });
   }, []);
 
@@ -35,10 +43,9 @@ function Home() {
   return (
     <Layout>
       <HeroSection data={home.gym} />
-      <ExerciseSection />
+      <ExerciseSection data={exercises} />
       <InfoSection {...infoData} />
-      <EquipmentSection />
-      <Footer />
+      <EquipmentSection data={equipments} />
     </Layout>
   );
 }

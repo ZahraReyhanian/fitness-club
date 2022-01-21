@@ -6,12 +6,19 @@ import "../../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import PanelTitle from "../../../components/title/PanelTitle";
 import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
 import {
-  createExercise,
   getEditExercise,
   updateExercise,
 } from "../../../api/admin/exercise_api";
-import AsyncSelect from "react-select/async";
-import { getAxiosInstanceAuth } from "../../../api/api";
+import Checkbox from "@material-ui/core/Checkbox";
+import InputLabel from "@material-ui/core/InputLabel";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+
+import { MenuProps, useStyles, options } from "./utils";
+import SelectEquipments from "../../../components/selects/SelectEquipments";
 import { useLocation, useParams } from "react-router-dom";
 
 const ExerciseCreate = () => {
@@ -62,27 +69,23 @@ const ExerciseCreate = () => {
     });
   }, [location]);
 
-  // handle input change event
-  const handleInputChange = (value) => {
-    setSP(value);
+  //multiselect
+  const classes = useStyles();
+  const [selected, setSelected] = useState([]);
+  const isAllSelected =
+    options.length > 0 && selected.length === options.length;
+
+  const handleChangeMultiSelect = (event) => {
+    const value = event.target.value;
+    if (value[value.length - 1] === "all") {
+      setSelected(selected.length === options.length ? [] : options);
+      return;
+    }
+    setSelected(value);
+    console.log(selected);
   };
 
-  // handle selection
-  const handleChange = (value) => {
-    setSelectedValue(value);
-  };
-
-  const fetchData = () => {
-    return getAxiosInstanceAuth()
-      .get(
-        "/admin/sportsEquipment?api_token=" +
-          localStorage.getItem("x-auth-token")
-      )
-      .then((response) => {
-        const dataRes = response.data.data.SP.docs;
-        return dataRes;
-      });
-  };
+  //end multiselect
 
   const validateData = (exercise) => {
     if (!exercise.exerciseName) return "Enter Name";
@@ -90,6 +93,7 @@ const ExerciseCreate = () => {
     if (!exercise.level) return "Enter Level";
     if (!exercise.gender) return "Enter Gender";
     if (!exercise.tip) return "Enter Tip";
+    if (!exercise.image) return "Enter Image";
   };
 
   const onChangeImg = (e) => {
@@ -116,7 +120,7 @@ const ExerciseCreate = () => {
     }
   };
 
-  const handleCreate = () => {
+  const handleUpdate = () => {
     const exercise = {
       exerciseName: exerciseName,
       exerciseDescription: exerciseDescription,
@@ -127,7 +131,8 @@ const ExerciseCreate = () => {
       tip: tip,
       gender: gender,
       image: imageFile,
-      SP: SP,
+      sportsequipment: SP,
+      BMIType: selected,
     };
     console.log(exercise);
     const error = validateData(exercise);
@@ -142,11 +147,12 @@ const ExerciseCreate = () => {
     formData.append("level", level);
     formData.append("tip", tip);
     formData.append("gender", gender);
-    formData.append("SP", SP);
+    formData.append("sportsEquipment", SP);
     formData.append("image", imageFile);
     formData.append("videoURL", videoURLFile);
-
-    console.log(exercise);
+    selected.forEach((select, index) =>
+      formData.append(`BMIType[${index}]`, select)
+    );
 
     updateExercise(id, formData, (isOK, data) => {
       if (isOK) {
@@ -176,6 +182,14 @@ const ExerciseCreate = () => {
                 ></Form.Control>
               </Form.Group>
 
+              <Form.Group className="mb-3" controlId="formBasicEquipment">
+                <FormLabel component="legend">Equipment</FormLabel>
+                <SelectEquipments
+                  value={SP}
+                  handleChange={(e) => setSP(e.target.value)}
+                ></SelectEquipments>
+              </Form.Group>
+
               <Form.Group className="mb-3" controlId="formBasicSet">
                 <FormLabel component="legend">Number of set</FormLabel>
                 <Form.Control
@@ -201,7 +215,7 @@ const ExerciseCreate = () => {
                 <Form.Control
                   value={exercisetime}
                   onChange={(e) => setExercisetime(e.target.value)}
-                  type="number"
+                  type="text"
                   placeholder="Enter time (minutes)"
                 ></Form.Control>
               </Form.Group>
@@ -264,6 +278,48 @@ const ExerciseCreate = () => {
                 </RadioGroup>
               </Form.Group>
 
+              <FormControl className={classes.formControl}>
+                <InputLabel id="mutiple-select-label">BMI Type</InputLabel>
+                <Select
+                  labelId="mutiple-select-label"
+                  multiple
+                  value={selected}
+                  onChange={handleChangeMultiSelect}
+                  renderValue={(selected) => selected.join(", ")}
+                  MenuProps={MenuProps}
+                >
+                  <MenuItem
+                    value="all"
+                    classes={{
+                      root: isAllSelected ? classes.selectedAll : "",
+                    }}
+                  >
+                    <ListItemIcon>
+                      <Checkbox
+                        classes={{ indeterminate: classes.indeterminateColor }}
+                        checked={isAllSelected}
+                        indeterminate={
+                          selected.length > 0 &&
+                          selected.length < options.length
+                        }
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      classes={{ primary: classes.selectAllText }}
+                      primary="Select All"
+                    />
+                  </MenuItem>
+                  {options.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      <ListItemIcon>
+                        <Checkbox checked={selected.indexOf(option) > -1} />
+                      </ListItemIcon>
+                      <ListItemText primary={option} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
@@ -290,20 +346,6 @@ const ExerciseCreate = () => {
               </Form.Group>
 
               <Form.Group>
-                <FormLabel>equipment</FormLabel>
-                <AsyncSelect
-                  cacheOptions
-                  defaultOptions
-                  value={selectedValue}
-                  getOptionLabel={(e) => e.equipmentName}
-                  getOptionValue={(e) => e.id}
-                  loadOptions={fetchData}
-                  onInputChange={handleInputChange}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-
-              <Form.Group>
                 <FormLabel>main image</FormLabel>
                 <Form.Control
                   type={"file"}
@@ -313,7 +355,7 @@ const ExerciseCreate = () => {
               </Form.Group>
 
               <Form.Group>
-                <img src={imagePath} alt="image" />
+                <img width="300" height="300" src={imagePath} alt="image" />
               </Form.Group>
 
               <Form.Group>
@@ -326,10 +368,10 @@ const ExerciseCreate = () => {
               </Form.Group>
 
               <Form.Group>
-                <img src={videoURLPath} alt="" />
+                <img width="300" height="300" src={videoURLPath} alt="gif" />
               </Form.Group>
 
-              <SubmitButton variant="primary" onClick={handleCreate}>
+              <SubmitButton variant="primary" onClick={handleUpdate}>
                 Submit
               </SubmitButton>
             </Form>

@@ -40,6 +40,6 @@ const MenuProps = {
   variant: "menu",
 };
 
-const options = ["underWeight", "healthWeight", "overWeight", "fat"];
+const options = ["underWeight", "healthyWeight", "overWeight", "fat"];
 
 export { useStyles, MenuProps, options };
