@@ -1,38 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, ProgressBar } from "react-bootstrap";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { H2 } from "../../components/styles/TestStyles";
 import PieProgress from "./PieProgress";
 import Title from "./Title";
-import { getUserPanel } from "../../api/api_home";
 
-const Dashboard = () => {
-  const [user, setUser] = useState([]);
-  const [student, setStudent] = useState([]);
-
-  useEffect(() => {
-    getUserPanel((isOk, data) => {
-      if (!isOk) return alert(data.message);
-      else {
-        setUser(data.user);
-        setStudent(data.user.student[0]);
-      }
-      console.log(user);
-      console.log(student);
-    });
-  }, []);
-
+const Dashboard = ({ user, student, BMI, progress }) => {
   return (
     <DashboardWrapper>
       <Container className={"mt-3"}>
         <Row>
           <DashboardColUserName lg={6} md={7} sm={6}>
-            <H2>Hi, {user.name}</H2>
-            <span>Keep your progress</span>
+            <UserNameTop>
+              <H2>Hi, {user.name}</H2>
+              <span>Keep your progress</span>
+            </UserNameTop>
+            <UserBMI>
+              BMI
+              <ProgressBar now={BMI} label={`${BMI}%`} />
+            </UserBMI>
           </DashboardColUserName>
           <DashboardColProgPie lg={6} md={5} sm={6}>
-            <PieProgress />
+            <PieProgress value={progress} />
+            Your Progress
           </DashboardColProgPie>
         </Row>
         <InfoSection>
@@ -54,7 +45,12 @@ const Dashboard = () => {
               <p>: {student.age == 0 ? "unset" : student.age}</p>
               <p>: {student.weight == 0 ? "unset" : student.weight + "KG"}</p>
               <p>: {student.Height == 0 ? "unset" : student.Height + "cm"}</p>
-              <p>: {student.sick ? "sick" : "nothing"}</p>
+              <p>
+                :{" "}
+                {student.sick === "false"
+                  ? "nothing"
+                  : student.medicalSpecifications}
+              </p>
             </InfoRight>
           </InfoWrapper>
         </InfoSection>
@@ -96,3 +92,7 @@ const InfoWrapper = styled(Row)`
 
 const InfoLeft = styled(Col)``;
 const InfoRight = styled(Col)``;
+const UserNameTop = styled.div``;
+const UserBMI = styled.div`
+  padding-top: 3.5rem;
+`;

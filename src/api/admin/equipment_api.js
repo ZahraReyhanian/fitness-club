@@ -6,7 +6,7 @@ export const getAllEquipments = (callback) => {
       "/admin/sportsEquipment?api_token=" + localStorage.getItem("x-auth-token")
     )
     .then((response) => {
-      const dataRes = response.data.data.SP.docs;
+      const dataRes = response.data.data.SP;
       callback(true, dataRes);
     })
     .catch((error) => {

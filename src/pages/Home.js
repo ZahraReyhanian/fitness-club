@@ -8,14 +8,16 @@ import { getHome } from "../api/api_home";
 import EquipmentSection from "../components/sections/EquipmentSection";
 import { getAxiosInstanceApi } from "../api/api";
 import { toast } from "react-toastify";
+import { SignalCellularConnectedNoInternet2BarOutlined } from "@material-ui/icons";
 
 function Home() {
   const [home, setHome] = useState([]);
   const [equipments, setEquipments] = useState([]);
   const [exercises, setExercises] = useState([]);
+  const [about, setAbout] = useState([]);
 
-  useEffect(async () => {
-    await getAxiosInstanceApi()
+  useEffect(() => {
+    getAxiosInstanceApi()
       .get("?api_token=" + localStorage.getItem("x-auth-token"))
       .then((response) => {
         const data = response.data;
@@ -24,9 +26,12 @@ function Home() {
           "http://localhost:8000/" + data.data.user.student[0].image
         );
         setHome(data.data);
-        setEquipments(home.sportEquipment);
+
         setExercises(home.studentExercise);
-        console.log(home);
+        setAbout(home.aboutUs);
+        console.log(home.sportEquipment);
+        setEquipments(home.sportEquipment);
+        console.log(equipments);
       })
       .catch((error) => {
         toast.error("Wait! Something happend :(");
@@ -38,13 +43,14 @@ function Home() {
       });
   }, []);
 
-  if (!home.gym) return "loading data ...";
+  if (!home.gym || !exercises || !about || !equipments)
+    return "loading data ...";
   else console.log(home);
   return (
     <Layout>
       <HeroSection data={home.gym} />
       <ExerciseSection data={exercises} />
-      <InfoSection {...infoData} />
+      <InfoSection data={about} {...infoData} />
       <EquipmentSection data={equipments} />
     </Layout>
   );

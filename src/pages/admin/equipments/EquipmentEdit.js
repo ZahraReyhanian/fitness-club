@@ -31,7 +31,9 @@ const EquipmentCreate = () => {
         setEquipmentName(data.equipmentName);
         setDeviceHealthStatus(data.deviceHealthStatus);
         setExplain(data.explain);
-        setImagePath("http://localhost:8000//" + data.image);
+        if (data.image.original) {
+          setImagePath("http://localhost:8000//" + data.image.original);
+        } else setImagePath("http://localhost:8000//" + data.image);
       }
     });
   }, [location]);
@@ -105,12 +107,14 @@ const EquipmentCreate = () => {
                 >
                   <FormControlLabel
                     value="true"
+                    checked={deviceHealthStatus == true}
                     control={<Radio />}
                     label="Available"
                     onChange={(e) => setDeviceHealthStatus(e.target.value)}
                   />
                   <FormControlLabel
                     value="false"
+                    checked={deviceHealthStatus == false}
                     control={<Radio />}
                     label="Unavailable"
                     onChange={(e) => setDeviceHealthStatus(e.target.value)}
@@ -140,7 +144,7 @@ const EquipmentCreate = () => {
               </Form.Group>
 
               <Form.Group>
-                <img src={imagePath} alt="image" />
+                <img width="250" height="250" src={imagePath} alt="image" />
               </Form.Group>
 
               <SubmitButton variant="primary" onClick={handleEdit}>

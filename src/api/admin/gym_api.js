@@ -18,7 +18,7 @@ export const getAllGym = (callback) => {
   getAxiosInstanceAuth()
     .get("/admin/gym?api_token=" + localStorage.getItem("x-auth-token"))
     .then((response) => {
-      const dataRes = response.data.data.gym.docs;
+      const dataRes = response.data.data.gym;
       callback(true, dataRes);
     })
     .catch((error) => {

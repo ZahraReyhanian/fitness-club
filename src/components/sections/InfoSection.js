@@ -29,6 +29,7 @@ const InfoSection = ({
   img,
   alt,
   start,
+  data,
 }) => {
   return (
     <>
@@ -39,8 +40,12 @@ const InfoSection = ({
             <InfoColumn>
               <TextWrapper>
                 <TopLine lightTopLine={lightTopLine}>{topLine}</TopLine>
-                <Heading lightText={lightText}>{headLine}</Heading>
-                <Subtitle lightTextDesc={lightTextDesc}>{description}</Subtitle>
+                <Heading lightText={lightText}>
+                  {data ? data.title : headLine}
+                </Heading>
+                <Subtitle lightTextDesc={lightTextDesc}>
+                  {data ? data.aboutUs : description}
+                </Subtitle>
                 <Link to="">
                   <Button big fontBig primary={primary}>
                     {buttonLable}
@@ -50,7 +55,10 @@ const InfoSection = ({
             </InfoColumn>
             <InfoColumn>
               <ImgWrapper start={start}>
-                <Img src={img} alt={alt} />
+                <Img
+                  src={data ? `http://localhost:8000//${data.image}` : img}
+                  alt={alt}
+                />
               </ImgWrapper>
             </InfoColumn>
           </InfoRow>

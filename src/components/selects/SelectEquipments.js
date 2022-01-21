@@ -17,7 +17,7 @@ const SelectEquipments = ({ handleChange, value }) => {
       const body = await response.json();
       if (!unmounted) {
         setItems(
-          body.data.SP.docs.map((item) => ({
+          body.data.SP.map((item) => ({
             label: item.equipmentName,
             value: item.id,
           }))

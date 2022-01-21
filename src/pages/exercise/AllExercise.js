@@ -18,25 +18,27 @@ const AllExercise = () => {
     });
   }, []);
 
-  return (
-    <Layout>
-      <Background>
-        <ExContainer>
-          <ExerciseTitle>
-            <TitleComponent
-              title="Your Exercises"
-              subtitle="exercise and necesary description"
-            />
-          </ExerciseTitle>
-          <Wrapper>
-            {exercises.map((exercise) => {
-              return <ExerciseCard data={exercise} />;
-            })}
-          </Wrapper>
-        </ExContainer>
-      </Background>
-    </Layout>
-  );
+  if (!exercises) return "loading data ....";
+  else
+    return (
+      <Layout>
+        <Background>
+          <ExContainer>
+            <ExerciseTitle>
+              <TitleComponent
+                title="Your Exercises"
+                subtitle="exercise and necesary description"
+              />
+            </ExerciseTitle>
+            <Wrapper>
+              {exercises.map((exercise) => {
+                return <ExerciseCard data={exercise} />;
+              })}
+            </Wrapper>
+          </ExContainer>
+        </Background>
+      </Layout>
+    );
 };
 
 export default AllExercise;

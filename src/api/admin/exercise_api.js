@@ -4,7 +4,7 @@ export const getAllExercises = (callback) => {
   getAxiosInstanceAuth()
     .get("/admin/exercises?api_token=" + localStorage.getItem("x-auth-token"))
     .then((response) => {
-      const dataRes = response.data.data.exercises.docs;
+      const dataRes = response.data.data.exercises;
       callback(true, dataRes);
     })
     .catch((error) => {

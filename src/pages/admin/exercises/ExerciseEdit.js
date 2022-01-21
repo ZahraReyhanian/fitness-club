@@ -61,7 +61,9 @@ const ExerciseCreate = () => {
         setTip(data.tip);
         setGender(data.gender);
         setSP(data.sportsequipment);
-        setSelectedValue(data.sportsequipment);
+        setSelectedValue(data.BMIType);
+        setSelected(data.BMIType);
+
         setVideoURLPath("http://localhost:8000//" + data.videoURL);
         setImagePath("http://localhost:8000//" + data.image);
         console.log(data);
@@ -161,6 +163,8 @@ const ExerciseCreate = () => {
     });
   };
 
+  const getGender = () => gender;
+
   return (
     <GymWrapper>
       <Container mt={3}>
@@ -230,18 +234,21 @@ const ExerciseCreate = () => {
                 >
                   <FormControlLabel
                     value="easy"
+                    checked={level == "easy"}
                     control={<Radio />}
                     label="easy"
                     onChange={(e) => setLevel(e.target.value)}
                   />
                   <FormControlLabel
                     value="medium"
+                    checked={level == "medium"}
                     control={<Radio />}
                     label="medium"
                     onChange={(e) => setLevel(e.target.value)}
                   />
                   <FormControlLabel
                     value="hard"
+                    checked={level == "hard"}
                     control={<Radio />}
                     label="hard"
                     onChange={(e) => setLevel(e.target.value)}
@@ -259,18 +266,21 @@ const ExerciseCreate = () => {
                 >
                   <FormControlLabel
                     value="male"
+                    checked={gender == "male"}
                     control={<Radio />}
                     label="male"
                     onChange={(e) => setGender(e.target.value)}
                   />
                   <FormControlLabel
                     value="female"
+                    checked={gender == "female"}
                     control={<Radio />}
                     label="female"
                     onChange={(e) => setGender(e.target.value)}
                   />
                   <FormControlLabel
                     value="both"
+                    checked={gender == "both"}
                     control={<Radio />}
                     label="both"
                     onChange={(e) => setGender(e.target.value)}

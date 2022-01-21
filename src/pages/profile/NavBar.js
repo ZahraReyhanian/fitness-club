@@ -8,7 +8,7 @@ import { uploadUserPhoto } from "../../api/api_auth";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ image }) => {
   const [imageFile, setImageFile] = useState();
   const [imagePath, setImagePath] = useState();
   const [anchorMenu, setAnchorMenu] = useState();
@@ -20,7 +20,7 @@ const NavBar = () => {
   };
 
   const getImage = () => {
-    if (imagePath) return imagePath;
+    if (image) return image;
     if (
       localStorage.getItem("image") &&
       localStorage.getItem("image") !== "undefined"
@@ -47,90 +47,94 @@ const NavBar = () => {
         const delayInMilliseconds = 1000; //1 second
 
         setTimeout(function () {
-          localStorage.setItem("image", addr + data.data.imagePath);
           toast.success("Successful !");
         }, delayInMilliseconds);
       });
     }
   };
 
-  return (
-    <Navbar>
-      <Nav>
-        <Profile>
-          <Grid
-            container
-            direction={"row-reverse"}
-            onClick={handleToggleMenu}
-            style={{ cursor: "pointer", justifyContent: "center" }}
-          >
-            <img src={getImage()} alt={"profile"} />
-            <Grid item container direction={"column"}>
-              <Typography>{localStorage.getItem("name")}</Typography>
+  if (!image) return "loading data....";
+  else
+    return (
+      <Navbar>
+        <Nav>
+          <Profile>
+            <Grid
+              container
+              direction={"row-reverse"}
+              onClick={handleToggleMenu}
+              style={{ cursor: "pointer", justifyContent: "center" }}
+            >
+              <img
+                src={imagePath ? imagePath : `http://localhost:8000//${image}`}
+                alt={"profile"}
+              />
+              <Grid item container direction={"column"}>
+                <Typography>{localStorage.getItem("name")}</Typography>
+              </Grid>
+              <input
+                ref={inputRef}
+                type={"file"}
+                style={{ display: "none" }}
+                onChange={handleAvatarChange}
+              />
             </Grid>
-            <input
-              ref={inputRef}
-              type={"file"}
-              style={{ display: "none" }}
-              onChange={handleAvatarChange}
-            />
-          </Grid>
-          {/* <img src="/images/profile.jpg" alt="" /> */}
-        </Profile>
-        <NavItems>
-          <NavItem>
-            <NavLink to="/profile" exact activeClassName="active">
-              Profile
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink to="/setting" exact activeClassName="active">
-              setting
-            </NavLink>
-          </NavItem>
-          {/* <NavItem>
+            {/* <img src="/images/profile.jpg" alt="" /> */}
+          </Profile>
+          <NavItems>
+            <NavItem>
+              <NavLink to="/profile" exact activeClassName="active">
+                Profile
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to="/setting" exact activeClassName="active">
+                setting
+              </NavLink>
+            </NavItem>
+            {/* <NavItem>
             <NavLink to="/profile_exercise" exact activeClassName="active">
               My Exercise
             </NavLink>
           </NavItem> */}
-          <NavItem>
-            <NavLink to="/" exact activeClassName="active">
-              Return to home
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              to="/signout"
-              exact
-              activeClassName="active"
+            <NavItem>
+              <NavLink to="/" exact activeClassName="active">
+                Return to home
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                to="/signout"
+                exact
+                activeClassName="active"
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.reload();
+                }}
+              >
+                Sign out
+              </NavLink>
+            </NavItem>
+          </NavItems>
+          <NavFooter>
+            <p>Your Profile Panel</p>
+          </NavFooter>
+          <Menu
+            open={anchorMenu}
+            onClose={() => setAnchorMenu(null)}
+            anchorEl={anchorMenu}
+          >
+            <MenuItem
               onClick={() => {
-                localStorage.clear();
-                window.location.reload();
+                inputRef.current.click();
               }}
             >
-              Sign out
-            </NavLink>
-          </NavItem>
-        </NavItems>
-        <NavFooter>
-          <p>Your Profile Panel</p>
-        </NavFooter>
-        <Menu
-          open={anchorMenu}
-          onClose={() => setAnchorMenu(null)}
-          anchorEl={anchorMenu}
-        >
-          <MenuItem
-            onClick={() => {
-              inputRef.current.click();
-            }}
-          >
-            ویرایش عکس پروفایل
-          </MenuItem>
-        </Menu>
-      </Nav>
-    </Navbar>
-  );
+              ویرایش عکس پروفایل
+            </MenuItem>
+          </Menu>
+        </Nav>
+      </Navbar>
+    );
 };
 
 export default NavBar;

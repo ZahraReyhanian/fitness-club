@@ -4,6 +4,11 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 import AvailableIcon from "@material-ui/icons/EventAvailable";
 
+const getImage = (data) => {
+  const path = data.image.original ? data.image.original : data.image;
+  return "http://localhost:8000/" + path;
+};
+
 const EquipmentCards = ({ data }) => {
   const status = data.deviceHealthStatus;
   return (
@@ -11,10 +16,7 @@ const EquipmentCards = ({ data }) => {
       <Row>
         <Col md={12} sm={12}>
           <ImageWrapper>
-            <img
-              src={"http://localhost:8000/" + data.image.original}
-              alt="equipment image"
-            />
+            <img src={getImage(data)} alt="equipment image" />
           </ImageWrapper>
           <TitleWrapper>
             <h5>{data.equipmentName}</h5>

@@ -7,8 +7,8 @@ export const infoData = {
   imgStart: "",
   buttonLable: "Get Started",
   description:
-    "We help you have an energetic and health life with different and suitable exercises",
-  headLine: "About Us",
+    "We help you have an energetic and health life with different and suitable exercises. Thank you!",
+  headLine: "About Usss",
   topLine: "Fitness Club",
   primary: true,
   img: "/images/about/about.svg",

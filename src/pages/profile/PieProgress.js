@@ -1,10 +1,10 @@
 import "./styles.css";
 import Pie from "./Pie";
 
-export default function PieProgress() {
+export default function PieProgress({ value }) {
   return (
     <div>
-      <Pie percentage={85} colour="#037fff" />
+      <Pie percentage={value} colour="#037fff" />
     </div>
   );
 }

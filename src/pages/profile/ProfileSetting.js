@@ -29,6 +29,7 @@ const ProfileSetting = () => {
         setHeight(student.Height);
         setAge(student.age);
         setGender(student.gender);
+        setProblem(student.medicalSpecifications);
       }
     });
   }, []);
@@ -41,7 +42,11 @@ const ProfileSetting = () => {
       Height: height,
       age: age,
       gender: gender,
+      medicalSpecifications: problem,
+      sick: "false",
     };
+
+    if (problem != "") user.sick = "true";
 
     updateProfileSetting(user, (isOk, data) => {
       if (!isOk) return toast.error(data);
@@ -52,7 +57,6 @@ const ProfileSetting = () => {
         toast.success("Successful!");
         localStorage.setItem("name", name);
         localStorage.setItem("email", email);
-        window.location.reload();
       }, delayInMilliseconds);
     });
   };
@@ -125,10 +129,16 @@ const ProfileSetting = () => {
             >
               <FormControlLabel
                 value="female"
+                checked={gender == "female"}
                 control={<Radio />}
                 label="Female"
               />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <FormControlLabel
+                checked={gender == "male"}
+                value="male"
+                control={<Radio />}
+                label="Male"
+              />
             </RadioGroup>
 
             <Form.Group className="mb-3" controlId="formBasicProblem">

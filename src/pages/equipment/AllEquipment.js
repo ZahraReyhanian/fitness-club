@@ -21,31 +21,33 @@ const AllEquipment = () => {
     });
   }, []);
 
-  return (
-    <Layout>
-      <Background>
-        <ExContainer>
-          <ExerciseTitle>
-            <TitleComponent
-              title="Equipments"
-              subtitle="equipments you need and we provide for you"
-            />
-          </ExerciseTitle>
-          <Wrapper>
-            <Row>
-              {equipments.map((equipment) => {
-                return (
-                  <Col lg={3} md={4} sm={12}>
-                    <EquipmentCards data={equipment} />
-                  </Col>
-                );
-              })}
-            </Row>
-          </Wrapper>
-        </ExContainer>
-      </Background>
-    </Layout>
-  );
+  if (!equipments) return "loading data ...";
+  else
+    return (
+      <Layout>
+        <Background>
+          <ExContainer>
+            <ExerciseTitle>
+              <TitleComponent
+                title="Equipments"
+                subtitle="equipments you need and we provide for you"
+              />
+            </ExerciseTitle>
+            <Wrapper>
+              <Row>
+                {equipments.map((equipment) => {
+                  return (
+                    <Col lg={3} md={4} sm={12}>
+                      <EquipmentCards data={equipment} />
+                    </Col>
+                  );
+                })}
+              </Row>
+            </Wrapper>
+          </ExContainer>
+        </Background>
+      </Layout>
+    );
 };
 
 export default AllEquipment;

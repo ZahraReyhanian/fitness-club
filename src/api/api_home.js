@@ -44,7 +44,28 @@ export const getEquipment = (callback) => {
 export const getExercise = (id, callback) => {
   getAxiosInstanceApi()
     .get(
-      "exercise/" + id + "?api_token=" + localStorage.getItem("x-auth-token")
+      "exerciseWithChangeDone/" +
+        id +
+        "?api_token=" +
+        localStorage.getItem("x-auth-token")
+    )
+    .then((response) => {
+      const data = response.data;
+      callback(true, data);
+    })
+    .catch((error) => {
+      console.log(error);
+      callback(false, error);
+    });
+};
+
+export const changeDoneExercise = (id, callback) => {
+  getAxiosInstanceApi()
+    .post(
+      "exerciseActivity/" +
+        id +
+        "?api_token=" +
+        localStorage.getItem("x-auth-token")
     )
     .then((response) => {
       const data = response.data;
@@ -71,7 +92,9 @@ export const getExercises = (callback) => {
 
 export const getUserPanel = (callback) => {
   getAxiosInstanceApi()
-    .get("/user/panel?api_token=" + localStorage.getItem("x-auth-token"))
+    .get(
+      "/user/panel/panelHome?api_token=" + localStorage.getItem("x-auth-token")
+    )
     .then((response) => {
       const data = response.data.data;
       callback(true, data);

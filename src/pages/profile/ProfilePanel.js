@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { themes } from "../../components/styles/ColorStyles";
 import Dashboard from "./Dashboard";
@@ -6,41 +6,71 @@ import NavBar from "./NavBar";
 import { Switch, Route } from "react-router-dom";
 import Setting from "./Setting";
 import ProfileExercise from "./ProfileExercise";
+import { getUserPanel } from "../../api/api_home";
 
 const ProfilePanel = () => {
   const [navToggle, setNavToggle] = useState(false);
+  const [image, setImage] = useState("/images/person.png");
 
   const navClick = () => {
     setNavToggle(!navToggle);
   };
 
-  return (
-    <PanelContainer>
-      <Sidebar className={` ${navToggle ? "nav-toggle" : ""}`}>
-        <NavBar />
-      </Sidebar>
-      <NavBtn onClick={navClick}>
-        <div className="line-1"></div>
-        <div className="line-2"></div>
-        <div className="line-3"></div>
-      </NavBtn>
-      <MainContent>
-        <MainContentWrapper>
-          <Switch>
-            <Route path="/profile">
-              <Dashboard />
-            </Route>
-            <Route path="/setting">
-              <Setting />
-            </Route>
-            <Route path="/profile_exercise">
-              <ProfileExercise />
-            </Route>
-          </Switch>
-        </MainContentWrapper>
-      </MainContent>
-    </PanelContainer>
-  );
+  const [user, setUser] = useState([]);
+  const [student, setStudent] = useState([]);
+  const [BMI, setBMI] = useState();
+  const [progress, setProgress] = useState();
+
+  useEffect(() => {
+    getUserPanel((isOk, data) => {
+      if (!isOk) return alert(data.message);
+      else {
+        setUser(data.user);
+        setStudent(data.user.student[0]);
+        setBMI(data.BMI);
+        setProgress(data.progress * 100);
+        console.log(student.image);
+        setImage(student.image);
+      }
+      console.log(user);
+      console.log(student);
+    });
+  }, []);
+
+  if (!user || !student) return "loading data...";
+  else
+    return (
+      <PanelContainer>
+        <Sidebar className={` ${navToggle ? "nav-toggle" : ""}`}>
+          <NavBar image={student.image} />
+        </Sidebar>
+        <NavBtn onClick={navClick}>
+          <div className="line-1"></div>
+          <div className="line-2"></div>
+          <div className="line-3"></div>
+        </NavBtn>
+        <MainContent>
+          <MainContentWrapper>
+            <Switch>
+              <Route path="/profile">
+                <Dashboard
+                  user={user}
+                  student={student}
+                  BMI={BMI}
+                  progress={progress}
+                />
+              </Route>
+              <Route path="/setting">
+                <Setting />
+              </Route>
+              <Route path="/profile_exercise">
+                <ProfileExercise />
+              </Route>
+            </Switch>
+          </MainContentWrapper>
+        </MainContent>
+      </PanelContainer>
+    );
 };
 
 export default ProfilePanel;
